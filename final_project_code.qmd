@@ -1,0 +1,48 @@
+---
+title: "Final Project Code"
+author: "Kyle Casitas, Stephanie Nguyen, William Yip"
+date: "June 9, 2023"
+format:
+  html:
+    toc: true
+    toc-location: left
+    code-fold: true
+    theme: yeti
+editor: visual
+execute:
+  message: false
+  warning: false
+bibliography: references.bib
+---
+
+# Introduction
+
+problem one data: [@koontz2013]
+
+problem one context: [@koontz2010]
+
+problem two data: [@seaver2022]
+
+### Set Up
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library(here)
+```
+
+```{r}
+#Load in Problem 1 data
+kangaroo_rat <- here("data", "sev208_kratseedbank_20120213.txt") |> #File path
+  read.csv(header= TRUE, sep =",", quote = "") #Has header, delimiter is comma, no quoting
+ 
+#Load in Problem 2 data
+```
+
+# Methods
+
+# Results
+
+# References
