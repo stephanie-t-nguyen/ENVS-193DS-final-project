@@ -1,6 +1,6 @@
 ---
 title: "Final Project Code"
-author: "Kyle Casitas, Stephanie Nguyen, William Yip"
+author: "Kyle Cahitas, Stephanie Nguyen, William Yip"
 date: "June 9, 2023"
 format:
   html:
