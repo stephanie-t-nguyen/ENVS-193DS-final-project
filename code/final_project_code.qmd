@@ -15,13 +15,17 @@ execute:
 bibliography: references.bib
 ---
 
+### Notes \[DELETE LATER\]
+
+Siting data:
+
+-   problem one data: [@koontz2013]
+
+-   problem one context: [@koontz2010]
+
+-   problem two data: [@seaver2022]
+
 # Introduction
-
-problem one data: [@koontz2013]
-
-problem one context: [@koontz2010]
-
-problem two data: [@seaver2022]
 
 ### Set Up
 
@@ -39,6 +43,17 @@ kangaroo_rat <- here("data", "sev208_kratseedbank_20120213.txt") |> #File path
   read.csv(header= TRUE, sep =",", quote = "") #Has header, delimiter is comma, no quoting
  
 #Load in Problem 2 data
+pollinator <- here("data", "shrubstudy_pollinator.ms.data.csv") |> 
+  read.csv()
+
+seed_ctwt <- here("data", "shrubstudy_seed_ctwt.ms.data.csv") |> 
+  read.csv()
+
+individual_flower <- here("data", "shrubstudy_individual_flower_counts.ms.data.csv") |> 
+  read.csv()
+
+community_flower <- here("data", "shrubstudy_community_flower_counts.ms.data.csv") |> 
+  read.csv()
 ```
 
 # Methods
