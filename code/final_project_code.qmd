@@ -94,6 +94,8 @@ library(here)
 library(naniar)
 library(tidyverse)
 library(GGally)
+library(tidyr)
+library(corrplot)
 ```
 
 ```{r}

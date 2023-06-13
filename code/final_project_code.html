@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Kyle Casitas, Stephanie Nguyen, William Yip">
+<meta name="author" content="Kyle Cahitas, Stephanie Nguyen, William Yip">
 <meta name="dcterms.date" content="2023-06-09">
 
 <title>Final Project Code</title>
@@ -129,12 +129,15 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#notes-delete-later" id="toc-notes-delete-later" class="nav-link active" data-scroll-target="#notes-delete-later">Notes [DELETE LATER]</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up">Set Up</a></li>
   </ul></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#methods-problem-1" id="toc-methods-problem-1" class="nav-link" data-scroll-target="#methods-problem-1">Methods Problem #1</a></li>
+  <li><a href="#results-problem-1" id="toc-results-problem-1" class="nav-link" data-scroll-target="#results-problem-1">Results Problem #1</a></li>
+  <li><a href="#methods-problem-2" id="toc-methods-problem-2" class="nav-link" data-scroll-target="#methods-problem-2">Methods Problem #2</a></li>
+  <li><a href="#results-problem-2" id="toc-results-problem-2" class="nav-link" data-scroll-target="#results-problem-2">Results Problem #2</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -155,7 +158,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Kyle Casitas, Stephanie Nguyen, William Yip </p>
+             <p>Kyle Cahitas, Stephanie Nguyen, William Yip </p>
           </div>
   </div>
     
@@ -171,11 +174,55 @@ div.csl-indent {
 
 </header>
 
+<section id="notes-delete-later" class="level3">
+<h3 class="anchored" data-anchor-id="notes-delete-later">Notes [DELETE LATER]</h3>
+<p>Problem #1: How does total seed number differ between kangaroo rat mound locations?</p>
+<p>Summary of context article (The Composition of seed banks) Rat mound creates micro-environments that can effect seed banks or number of seeds, studies tend to show that there are more seeds around mounds</p>
+<ul>
+<li>probably do a single linear regression like in homework 4? Have to use Kruskel test instead of ANOVA because data is non-normal</li>
+</ul>
+<p>Data Dictionary:</p>
+<ul>
+<li><p>mnd: kangaroo rat mound (location)</p></li>
+<li><p>dir: direction from center of the mound</p></li>
+<li><p>loc: microhabitat (B = base, S = surrounding, E = edge, I = interspace)</p></li>
+<li><p>species: four letter code for target taxa</p></li>
+<li><p>seeds: seed counts for species and percent cover for physical variables</p></li>
+</ul>
+<p>Problem #2: How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?</p>
+<ul>
+<li>probably do a multiple linear regression like in homework 5? –actually we CAN”T because the data is not normal</li>
+</ul>
+<p>Summary: Because of climate change “shrubfication is happening in the tundra, where more shrubs are growing in the tundra, which would effect the ecosystem there. On average, there are more flowers in open plots vs shrub plots. Shrub plots are plots that have undergone shrubfication. Open plots have not experienced shrubfication yet.</p>
+<p>Data Table/Dictionary</p>
+<p>pollinator: observations of pollinators visiting plots</p>
+<ul>
+<li><p>shrub_num: shrub ID</p></li>
+<li><p>treatment: open or shrub plot</p></li>
+<li><p>pollinator_ID: what type of pollinator</p></li>
+<li><p>cloud_cover: “rough % cloud cover” - whatever that means</p></li>
+<li><p>wind: wind speed (mph) - probably because it affects pollinators</p></li>
+</ul>
+<p>seed_ctwt</p>
+<ul>
+<li><p>species_ID: what plant</p></li>
+<li><p>plant_nr: plant number, what number 1-5 plant was assigned to</p></li>
+<li><p>total_nr_infl: total number of inflorescenses</p></li>
+<li><p>nr_infl_coll: number of inforesecenses collected</p></li>
+<li><p>nr_seeds: seed numbers</p></li>
+<li><p>wt_seeds_mg: seed weights</p></li>
+</ul>
+<p>individual_flower</p>
+<p>community_flower</p>
+<p>Siting data:</p>
+<ul>
+<li><p>problem one data: <span class="citation" data-cites="koontz2013">(<a href="#ref-koontz2013" role="doc-biblioref">T. Koontz and Simpson 2013</a>)</span></p></li>
+<li><p>problem one context: <span class="citation" data-cites="koontz2010">(<a href="#ref-koontz2010" role="doc-biblioref">T. L. Koontz and Simpson 2010</a>)</span></p></li>
+<li><p>problem two data: <span class="citation" data-cites="seaver2022">(<a href="#ref-seaver2022" role="doc-biblioref">Seaver 2022</a>)</span></p></li>
+</ul>
+</section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>problem one data: <span class="citation" data-cites="koontz2013">(<a href="#ref-koontz2013" role="doc-biblioref">T. Koontz and Simpson 2013</a>)</span></p>
-<p>problem one context: <span class="citation" data-cites="koontz2010">(<a href="#ref-koontz2010" role="doc-biblioref">T. L. Koontz and Simpson 2010</a>)</span></p>
-<p>problem two data: <span class="citation" data-cites="seaver2022">(<a href="#ref-seaver2022" role="doc-biblioref">Seaver 2022</a>)</span></p>
 <section id="set-up" class="level3">
 <h3 class="anchored" data-anchor-id="set-up">Set Up</h3>
 <div class="cell">
@@ -187,7 +234,12 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -197,16 +249,201 @@ div.csl-indent {
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kangaroo_rat <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"sev208_kratseedbank_20120213.txt"</span>) <span class="sc">|&gt;</span> <span class="co">#File path</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">header=</span> <span class="cn">TRUE</span>, <span class="at">sep =</span><span class="st">","</span>, <span class="at">quote =</span> <span class="st">""</span>) <span class="co">#Has header, delimiter is comma, no quoting</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in Problem 2 data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in Problem 2 data</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>pollinator <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_pollinator.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>seed_ctwt <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_seed_ctwt.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>individual_flower <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_individual_flower_counts.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>community_flower <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_community_flower_counts.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 </section>
-<section id="methods" class="level1">
-<h1>Methods</h1>
+<section id="methods-problem-1" class="level1">
+<h1>Methods Problem #1</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Missing data check</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>kangaroo_rat_missing <span class="ot">&lt;-</span> <span class="fu">vis_miss</span>(kangaroo_rat) <span class="co">#No data missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Exploratory data visualization, quite hard to tell the relationship between location and number of seeds, there are a lot of data clustered at zero</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> kangaroo_rat, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> seeds)) <span class="sc">+</span> <span class="fu">geom_jitter</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create model to further explore relationship</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>modelobject <span class="ot">&lt;-</span> <span class="fu">lm</span>(seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualize models - diagnostic plots in a grid </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelobject) <span class="co">#Data is not normal </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Kruskal-Wallis test</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelobject)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>model_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = seeds ~ loc, data = kangaroo_rat)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-18.27  -7.38  -3.29  -1.41 638.23 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   17.774      1.905   9.331  &lt; 2e-16 ***
+locD         -10.397      2.694  -3.860 0.000118 ***
+locE         -14.487      2.694  -5.378 8.68e-08 ***
+locI         -16.115      2.694  -5.982 2.72e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 37.62 on 1556 degrees of freedom
+Multiple R-squared:  0.02713,   Adjusted R-squared:  0.02526 
+F-statistic: 14.46 on 3 and 1556 DF,  p-value: 2.697e-09</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat) <span class="co">#p-value very small, evidence to reject the null, evidence that there is a difference in seed numbers among the mound locations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  seeds by loc
+Kruskal-Wallis chi-squared = 21.932, df = 3, p-value = 6.738e-05</code></pre>
+</div>
+</div>
 </section>
-<section id="results" class="level1">
-<h1>Results</h1>
+<section id="results-problem-1" class="level1">
+<h1>Results Problem #1</h1>
+</section>
+<section id="methods-problem-2" class="level1">
+<h1>Methods Problem #2</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(pollinator) <span class="co">#Most of tag_num missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(seed_ctwt) <span class="co">#Most of dist_fr_shr, wt_seeds_mg, nr_seeds missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(individual_flower) <span class="co">#dist_fr_shr missing, some flower count missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(community_flower) <span class="co">#No missing data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Clean data</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>seed_ctwt_subset <span class="ot">&lt;-</span> seed_ctwt <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"treatment"</span>, <span class="st">"species"</span>, <span class="st">"total_nr_infl"</span>, <span class="st">"nr_seeds"</span>)) <span class="sc">|&gt;</span> <span class="co">#Plot type, plant species, total number of inflorescences - select relevant columns </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(nr_seeds) <span class="co">#Thats a lot of data missing... should we do anything? </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Not quite sure what the total number of inflorescences vs inflorescence collected means</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Delete this? </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Pearson's r for numerical values only </span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>seed_cor <span class="ot">&lt;-</span> seed_ctwt_subset <span class="sc">|&gt;</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(total_nr_infl<span class="sc">:</span>nr_seeds) <span class="sc">|&gt;</span> <span class="co">#Not sure if this is correct</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Create correlation plot</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(seed_cor, </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"ellipse"</span>, <span class="co">#Change shape of item in cells</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">"black"</span>) <span class="co">#Add coefficient in black text</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>seed_ctwt_subset <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(total_nr_infl<span class="sc">:</span>nr_seeds) <span class="sc">|&gt;</span> <span class="co">#Not sure if this is correct either</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a null and a full model - fit multiple linear models in order to see which one is best</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>null <span class="ot">&lt;-</span> <span class="fu">lm</span>(nr_seeds <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> seed_ctwt_subset)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Assume no relationship between total mass and predictor variables </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#1 indicates absence of all other predictors </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>full <span class="ot">&lt;-</span> <span class="fu">lm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Assume predictor variables can predict biomass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(full) <span class="co">#DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?</p>
+</section>
+<section id="results-problem-2" class="level1">
+<h1>Results Problem #2</h1>
 </section>
 <section id="references" class="level1 unnumbered">
 
