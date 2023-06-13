@@ -17,6 +17,62 @@ bibliography: references.bib
 
 ### Notes \[DELETE LATER\]
 
+Problem #1: How does total seed number differ between kangaroo rat mound locations?
+
+Summary of context article (The Composition of seed banks) Rat mound creates micro-environments that can effect seed banks or number of seeds, studies tend to show that there are more seeds around mounds
+
+-   probably do a single linear regression like in homework 4? Have to use Kruskel test instead of ANOVA because data is non-normal
+
+Data Dictionary:
+
+-   mnd: kangaroo rat mound (location)
+
+-   dir: direction from center of the mound
+
+-   loc: microhabitat (B = base, S = surrounding, E = edge, I = interspace)
+
+-   species: four letter code for target taxa
+
+-   seeds: seed counts for species and percent cover for physical variables
+
+Problem #2: How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
+
+-   probably do a multiple linear regression like in homework 5? --actually we CAN"T because the data is not normal
+
+Summary: Because of climate change "shrubfication is happening in the tundra, where more shrubs are growing in the tundra, which would effect the ecosystem there. On average, there are more flowers in open plots vs shrub plots. Shrub plots are plots that have undergone shrubfication. Open plots have not experienced shrubfication yet.
+
+Data Table/Dictionary
+
+pollinator: observations of pollinators visiting plots
+
+-   shrub_num: shrub ID
+
+-   treatment: open or shrub plot
+
+-   pollinator_ID: what type of pollinator
+
+-   cloud_cover: "rough % cloud cover" - whatever that means
+
+-   wind: wind speed (mph) - probably because it affects pollinators
+
+seed_ctwt
+
+-   species_ID: what plant
+
+-   plant_nr: plant number, what number 1-5 plant was assigned to
+
+-   total_nr_infl: total number of inflorescenses
+
+-   nr_infl_coll: number of inforesecenses collected
+
+-   nr_seeds: seed numbers
+
+-   wt_seeds_mg: seed weights
+
+individual_flower
+
+community_flower
+
 Siting data:
 
 -   problem one data: [@koontz2013]
@@ -35,6 +91,9 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 ```{r}
 library(here)
+library(naniar)
+library(tidyverse)
+library(GGally)
 ```
 
 ```{r}
@@ -56,8 +115,94 @@ community_flower <- here("data", "shrubstudy_community_flower_counts.ms.data.csv
   read.csv()
 ```
 
-# Methods
+# Methods Problem #1
 
-# Results
+```{r}
+#Missing data check
+kangaroo_rat_missing <- vis_miss(kangaroo_rat) #No data missing
+```
+
+```{r}
+#Exploratory data visualization, quite hard to tell the relationship between location and number of seeds, there are a lot of data clustered at zero
+ggplot(data = kangaroo_rat, aes(x = loc, y = seeds)) + geom_jitter()
+```
+
+```{r}
+#Create model to further explore relationship
+modelobject <- lm(seeds ~ loc, data = kangaroo_rat)
+
+#Visualize models - diagnostic plots in a grid 
+par(mfrow = c(2, 2))
+plot(modelobject) #Data is not normal 
+```
+
+```{r}
+#Kruskal-Wallis test
+model_summary <- summary(modelobject)
+model_summary
+```
+
+```{r}
+kruskal.test(seeds ~ loc, data = kangaroo_rat) #p-value very small, evidence to reject the null, evidence that there is a difference in seed numbers among the mound locations
+```
+
+# Results Problem #1
+
+# Methods Problem #2
+
+```{r}
+gg_miss_var(pollinator) #Most of tag_num missing
+gg_miss_var(seed_ctwt) #Most of dist_fr_shr, wt_seeds_mg, nr_seeds missing
+gg_miss_var(individual_flower) #dist_fr_shr missing, some flower count missing
+gg_miss_var(community_flower) #No missing data
+```
+
+```{r}
+#Clean data
+seed_ctwt_subset <- seed_ctwt |> 
+  select(c("treatment", "species", "total_nr_infl", "nr_seeds")) |> #Plot type, plant species, total number of inflorescences - select relevant columns 
+  drop_na(nr_seeds) #Thats a lot of data missing... should we do anything? 
+
+#Not quite sure what the total number of inflorescences vs inflorescence collected means
+```
+
+```{r}
+#Delete this? 
+
+#Calculate Pearson's r for numerical values only 
+seed_cor <- seed_ctwt_subset |> 
+  dplyr::select(total_nr_infl:nr_seeds) |> #Not sure if this is correct
+  cor(method = "pearson")
+
+#Create correlation plot
+corrplot(seed_cor, 
+         method = "ellipse", #Change shape of item in cells
+         addCoef.col = "black") #Add coefficient in black text
+```
+
+```{r}
+seed_ctwt_subset |> 
+  dplyr::select(total_nr_infl:nr_seeds) |> #Not sure if this is correct either
+  ggpairs()
+```
+
+```{r}
+#Create a null and a full model - fit multiple linear models in order to see which one is best
+null <- lm(nr_seeds ~ 1, data = seed_ctwt_subset)
+#Assume no relationship between total mass and predictor variables 
+#1 indicates absence of all other predictors 
+
+full <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
+#Assume predictor variables can predict biomass
+```
+
+```{r}
+par(mfrow = c(2, 2))
+plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION 
+```
+
+How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
+
+# Results Problem #2
 
 # References
