@@ -83,6 +83,14 @@ Siting data:
 
 # Introduction
 
+Kangaroo rats are
+
+-   Summary of context article (The Composition of seed banks) Rat mound creates micro-environments that can effect seed banks or number of seeds, studies tend to show that there are more seeds around mounds
+
+-   How does total seed number differ between kangaroo rat mound locations?
+
+-   problem one context: [@koontz2010]
+
 ### Set Up
 
 ```{r}
@@ -122,13 +130,26 @@ community_flower <- here("data", "shrubstudy_community_flower_counts.ms.data.csv
 
 ```{r}
 #Missing data check
-kangaroo_rat_missing <- vis_miss(kangaroo_rat) #No data missing
+gg_miss_var(kangaroo_rat) #No data missing
 ```
+
+**Figure ??** Visualization of Missing Data in "kangaroo_rat" dataframe
+
+The y-axis are the variables (columns in the dataframe and the x-axis marks how many rows have missing data per variable.
 
 ```{r}
 #Exploratory data visualization, quite hard to tell the relationship between location and number of seeds, there are a lot of data clustered at zero
-ggplot(data = kangaroo_rat, aes(x = loc, y = seeds)) + geom_jitter()
+ggplot() + 
+  geom_jitter(data = kangaroo_rat, aes(x = loc, y = seeds, color = loc), alpha = 0.4) + 
+  theme_bw() + 
+  theme(legend.position = "none") + 
+  labs(x = "Mound Location", 
+       y = "Number of Seeds")
 ```
+
+**Figure ???**. Exploratory Data Visualization of Seeds vs Mound Location
+
+This figure plots observations of the number of seeds found at each mound location.
 
 ```{r}
 #Create model to further explore relationship
@@ -138,6 +159,10 @@ modelobject <- lm(seeds ~ loc, data = kangaroo_rat)
 par(mfrow = c(2, 2))
 plot(modelobject) #Data is not normal 
 ```
+
+**Figure ???**. Exploratory Data Visualization of Seeds vs Mound Location
+
+This figure plots obse
 
 ```{r}
 #Kruskal-Wallis test
@@ -150,6 +175,8 @@ kruskal.test(seeds ~ loc, data = kangaroo_rat) #p-value very small, evidence to 
 ```
 
 # Results Problem #1
+
+-   low p-value suggests evidence to reject null hypothesis, difference in medians among locations
 
 # Methods Problem #2
 
@@ -271,8 +298,6 @@ plot(simulateResiduals(seedctwt2, plot = TRUE))
 # generalized linear model with negative binomial distribution
 plot(simulateResiduals(seedctwt3, plot = TRUE))
 ```
-
-
 
 How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
 
