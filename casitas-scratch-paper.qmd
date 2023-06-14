@@ -13,16 +13,15 @@ library(tidyr)
 library(corrplot)
 ```
 
+# Scratch paper
 
+## Problem two
 
-# Scratch paper 
+Questions: How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
 
+Independent Variable: Seed Count
 
-
-## Problem two 
-
-Questions: How does seed count vary with plot type (shrub or open), plant species, and total
-number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it? 
+Predictor Variable: Plot type (shrub or open) [binary], plant species , total number of inflorescences
 
 ```{r}
 
@@ -39,4 +38,95 @@ individual_flower <- here("data", "shrubstudy_individual_flower_counts.ms.data.c
 community_flower <- here("data", "shrubstudy_community_flower_counts.ms.data.csv") |> 
   read.csv()
 ```
+
+```{r}
+View(pollinator)
+```
+
+```{r}
+View(seed_ctwt)
+```
+
+```{r}
+View(individual_flower)
+```
+
+```{r}
+View(community_flower)
+```
+
+## peppas work 
+
+```{r}
+#Clean data
+seed_ctwt_subset <- seed_ctwt |> 
+  select(c("treatment", "species", "total_nr_infl", "nr_seeds")) |> #Plot type, plant species, total number of inflorescences - select relevant columns 
+  drop_na(nr_seeds) #Thats a lot of data missing... should we do anything? 
+
+#Not quite sure what the total number of inflorescences vs inflorescence collected means
+```
+
+```{r}
+View(seed_ctwt)
+```
+
+
+
+
+
+
+
+
+```{r}
+#Delete this? 
+
+#Calculate Pearson's r for numerical values only 
+seed_cor <- seed_ctwt_subset |> 
+  dplyr::select(total_nr_infl:nr_seeds) |> #Not sure if this is correct
+  cor(method = "pearson")
+
+#Create correlation plot
+corrplot(seed_cor, 
+         method = "ellipse", #Change shape of item in cells
+         addCoef.col = "black") #Add coefficient in black text
+```
+
+```{r}
+seed_ctwt_subset |> 
+  dplyr::select(total_nr_infl:nr_seeds) |> #Not sure if this is correct either
+  ggpairs()
+```
+
+```{r}
+#Create a null and a full model - fit multiple linear models in order to see which one is best
+null <- lm(nr_seeds ~ 1, data = seed_ctwt_subset)
+#Assume no relationship between total mass and predictor variables 
+#1 indicates absence of all other predictors 
+
+full <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
+#Assume predictor variables can predict biomass
+```
+
+```{r}
+par(mfrow = c(2, 2))
+plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION 
+```
+
+How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
+
+```{r}
+View(full)
+```
+
+
+
+## current work 
+
+```{r}
+full_log <- lm(log(nr_seeds) ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
+```
+
+
+
+
 

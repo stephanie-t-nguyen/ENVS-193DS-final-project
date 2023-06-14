@@ -96,6 +96,7 @@ library(tidyverse)
 library(GGally)
 library(tidyr)
 library(corrplot)
+library(skimr)
 ```
 
 ```{r}
@@ -202,6 +203,76 @@ full <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subs
 par(mfrow = c(2, 2))
 plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION 
 ```
+
+# START COPYING WORKSHOP 10
+
+## From WORKSHOP 10
+
+```{r set-up}
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggeffects)
+library(performance)
+library(naniar)
+library(flextable)
+library(car)
+library(broom)
+library(AICcmodavg)
+library(GGally)
+library(MuMIn)
+#######
+
+library(DHARMa)
+library(MASS)
+library(lme4)
+library(glmmTMB)
+#install.packages('TMB', type = 'source')
+```
+
+```{r}
+skim(seed_ctwt_subset)
+```
+
+```{r}
+# linear model, we know this is wrong
+seed_L1 <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
+
+# generalized linear model with Poisson distribution
+seedctwt2 <-glm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset, family = "poisson")
+seedctwt2.a <- glm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset, family = "poisson")
+
+# generalized linear model with negative binomial distribution
+seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
+seedctwt3.a <- glmmTMB(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset, family = "nbinom2")
+
+# generalized linear model with Poisson distribution and random effect of site
+#seedctwt4 <- glmer(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset, family = "poisson") 
+# need to go over this model, as in class it was site, but IDK how to do incorperate it into our dataframe 
+
+##from Class###
+# generalized linear model with Poisson distribution and random effect of site
+#salmod4 <- glmer(count ~ cover + mined  + spp + (1|site), data = salamanders, family = "poisson")
+#salmod4.a <- glmmTMB(count ~ cover + mined  + spp + (1|site), data = salamanders, family = "poisson")
+
+```
+
+```{r}
+# linear model vibe
+plot(simulateResiduals(seed_L1, plot = TRUE))
+```
+
+```{r}
+# generalized linear model with Poisson distribution
+plot(simulateResiduals(seedctwt2, plot = TRUE))
+```
+
+```{r}
+# generalized linear model with negative binomial distribution
+plot(simulateResiduals(seedctwt3, plot = TRUE))
+```
+
+
 
 How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
 
