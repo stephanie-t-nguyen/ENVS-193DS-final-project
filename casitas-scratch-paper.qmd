@@ -1,0 +1,42 @@
+---
+title: "Casitas-scratch-paper"
+format: html
+editor: visual
+---
+
+```{r, libraries}
+library(here)
+library(naniar)
+library(tidyverse)
+library(GGally)
+library(tidyr)
+library(corrplot)
+```
+
+
+
+# Scratch paper 
+
+
+
+## Problem two 
+
+Questions: How does seed count vary with plot type (shrub or open), plant species, and total
+number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it? 
+
+```{r}
+
+#Load in Problem 2 data
+pollinator <- here("data", "shrubstudy_pollinator.ms.data.csv") |> 
+  read.csv()
+
+seed_ctwt <- here("data", "shrubstudy_seed_ctwt.ms.data.csv") |> 
+  read.csv()
+
+individual_flower <- here("data", "shrubstudy_individual_flower_counts.ms.data.csv") |> 
+  read.csv()
+
+community_flower <- here("data", "shrubstudy_community_flower_counts.ms.data.csv") |> 
+  read.csv()
+```
+
