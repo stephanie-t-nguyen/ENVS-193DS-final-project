@@ -103,6 +103,7 @@ library(stringr)
 library(effsize)
 library(rstatix)
 library(flextable)
+library(performance)
 ```
 
 ```{r}

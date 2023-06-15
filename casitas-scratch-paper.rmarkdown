@@ -29,6 +29,7 @@ library(janitor)
 
 ```
 
+
 # Scratch paper
 
 ## Problem two
@@ -38,6 +39,7 @@ Questions: How does seed count vary with plot type (shrub or open), plant specie
 Independent Variable: Seed Count
 
 Predictor Variable: Plot type (shrub or open) [binary], plant species , total number of inflorescences
+
 
 ```{r}
 
@@ -72,9 +74,11 @@ View(individual_flower)
 View(community_flower)
 ```
 
+
 ### Restart 
 
 Idk, had a problem with the function select 
+
 
 ```{r}
 seed_ctwt <- here("data", "shrubstudy_seed_ctwt.ms.data.csv") |> 
@@ -152,25 +156,32 @@ plot(simulateResiduals(seedctwt3))
 plot(simulateResiduals(seedctwt3.a))
 ```
 
+
 ### take-0.5. 
+
 ```{r}
-#install.packages("pscl")
+install.packages("pscl")
 library(pscl)
 ```
 
 ```{r}
 # seed_L1 <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2) 
+
+
 zip_model <- zeroinfl(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2, dist = "poisson")
+
 #Warning message:
 #glm.fit: fitted probabilities numerically 0 or 1 occurred 
 ```
 
 ```{r}
-#plot(simulateResiduals(zip_model))
+plot(simulateResiduals(zip_model))
 ```
+
 
 ### take-1, [aspect]
 to much multicollinerarity
+
 ```{r}
 # trying aspect
 seed_ctwt_subset_as <- seed_clean %>% 
@@ -190,7 +201,9 @@ seedctwtas <- glmer(nr_seeds ~ treatment + species + (1|aspect) + total_nr_infl,
 plot(simulateResiduals(seedctwtas))
 ```
 
+
 ### take-2, [nr_infl_coll], got it to work but fail 
+
 ```{r}
 # trying nr_infl_coll
 seed_ctwt_subset_nrf <- seed_clean %>% 
@@ -214,7 +227,9 @@ plot(simulateResiduals(seedctwtnrf_5))
 plot(simulateResiduals(seedctwtnrf))
 ```
 
+
 ### take-3, [wt_seeds_mg], fail 
+
 ```{r}
 # trying wt_seeds_mg
 seed_ctwt_subset_wtsm <- seed_clean %>% 
@@ -246,7 +261,9 @@ plot(simulateResiduals(seedctwtwtsm_5))
 ```
 
 
+
 ### take-4 , [dist_fr_shr], fail
+
 ```{r}
 # trying dist_fr_shr
 seed_ctwt_subset_dfs <- seed_clean %>% 
@@ -264,8 +281,10 @@ seed_ctwt_subset_dfs <- seed_clean %>%
 #plot(simulateResiduals(seedctwtdfs))
 ```
 
+
 ### take-5 [shrub_num]
 to much multicollinearity 
+
 
 ```{r}
 seed_ctwt_subset_sn <- seed_clean %>% 
@@ -285,8 +304,10 @@ seedctwtwtsn <- glmer(nr_seeds ~ treatment + species + (1|shrub_num) + total_nr_
 plot(simulateResiduals(seedctwtwtsn))
 ```
 
+
 ### take-6 [plant_nr]
 to much multicollinearity 
+
 ```{r}
 seed_ctwt_subset_pn <- seed_clean %>% 
   select(treatment, species, total_nr_infl, nr_seeds, plant_nr) %>% 
@@ -306,15 +327,19 @@ seedctwtwtpn <- glmer(nr_seeds ~ treatment + species + (1|plant_nr) + total_nr_i
 plot(simulateResiduals(seedctwtwtpn))
 ```
 
+
 ### take-7 [tag_num]
 to much multicollinearity 
+
 ```{r}
 seed_ctwt_subset_tgnm <- seed_clean %>% 
   select(treatment, species, total_nr_infl, nr_seeds, tag_num) %>% 
   drop_na(nr_seeds, tag_num)
 ```
 
+
 View(seed_ctwt_subset_tgnm)
+
 
 ```{r}
 seedctwtwttgnm <- glmer(nr_seeds ~ treatment + species + (1|tag_num) + total_nr_infl, data = seed_ctwt_subset_tgnm, family = "poisson" )
@@ -324,8 +349,10 @@ seedctwtwttgnm <- glmer(nr_seeds ~ treatment + species + (1|tag_num) + total_nr_
 plot(simulateResiduals(seedctwtwttgnm))
 ```
 
+
 ### take-8 [data_collected]
 to much multicollinearity 
+
 ```{r}
 seed_ctwt_subset_dc <- seed_clean %>% 
   select(treatment, species, total_nr_infl, nr_seeds, date_collected) %>% 
@@ -345,54 +372,18 @@ seedctwtwtdc_nb <- glmer.nb(nr_seeds ~ treatment + species + (1|date_collected) 
 
 ```
 
+
+
 ## Trying to merge the datasets now 
 
-```{r}
-colnames(seed_ctwt_subset2)
-
-colnames(seed_clean)
-
-colnames(individual_flower)
-
-colnames(indivflw_clean)
-
-colnames(seed_cclean)
-
-```
 
 ```{r}
-indivflw_clean <- na.omit(individual_flower)
-```
-
-```{r}
-seed_cclean <- na.omit(seed_clean)
-```
-
-```{r}
-seed_ccleand <- seed_cclean %>% 
-  rename(date = date_collected)
-```
-
-```{r}
-View(seed_ccleand)
-```
-
-```{r}
-seed_clean
 
 seed_ctwt_subset2
 
 individual_flower
 
-merge_sflower <- inner_join(seed_ccleand, indivflw_clean, by = c("treatment","species","plant_nr","date", "shrub_num", "dist_fr_shr"))
+merge_sflower <- inner_join(seed_ctwt_subset2, individual_flower, by = c(""))
+
 ```
-
-```{r}
-View(merge_sflower)
-```
-
-
-
-
-
 
