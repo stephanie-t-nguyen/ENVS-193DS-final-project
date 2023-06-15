@@ -26,6 +26,7 @@ library(tidyr)
 library(corrplot)
 library(dplyr)
 library(janitor)
+library(ggplot2)
 
 ```
 
@@ -90,12 +91,17 @@ gg_miss_var(seed_ctwt)
 #Clean data
 
 
-#seed_ctwt_subset <- seed_ctwt |> 
-  #select(c("treatment", "species", "total_nr_infl", "nr_seeds")) |> #Plot type, plant species, total number of inflorescences - select relevant columns 
-  #drop_na(nr_seeds) #Thats a lot of data missing... should we do anything? 
+seed_ctwt_subset <- seed_ctwt |> 
+  select(c("treatment", "species", "total_nr_infl", "nr_seeds")) |> #Plot type, plant species, total number of inflorescences - select relevant columns 
+  drop_na(nr_seeds) #Thats a lot of data missing... should we do anything? 
 
 #Not quite sure what the total number of inflorescences vs inflorescence collected means
 ```
+
+```{r}
+View(seed_ctwt_subset)
+```
+
 
 ```{r}
 seed_clean <- seed_ctwt %>% 
@@ -147,6 +153,106 @@ plot(simulateResiduals(seedctwt2.a))
 ```{r}
 plot(simulateResiduals(seedctwt3))
 ```
+
+```{r}
+MuMIn::model.sel(seedctwt3)
+```
+
+```{r}
+summary(seedctwt3)
+# when looking at the treatmentshurb it was -0.34744, so it is in reference to the open plot
+```
+
+
+number of seeds of shurb and open plots 
+
+```{r}
+#using og data set 
+ggplot()+ 
+  geom_jitter(data = seed_clean, aes(x = treatment, y = nr_seeds, color = treatment))+ geom_boxplot(data = seed_clean, aes(x = treatment, y = nr_seeds))
+  #ylim(0,125)
+  
+  theme_classic()
+#there was an outlier at y-axis of 180 
+
+```
+
+```{r}
+# somthing is wrong with seed_cclean, for treatments 
+ggplot()+ 
+  geom_jitter(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds, color = treatment))+ geom_boxplot(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds))
+  #ylim(0,125)
+  
+  theme_classic()
+#there was an outlier at y-axis of 180 
+
+```
+
+```{r}
+# removing the outlier from seed_ctwt_subset 
+seed_ctwt_outno <- seed_ctwt_subset %>% filter(nr_seeds<117)
+
+```
+
+```{r}
+ggplot()+ 
+  geom_jitter(data = seed_ctwt_outno, aes(x = treatment, y = nr_seeds, color = treatment))+ geom_boxplot(data = seed_ctwt_outno, aes(x = treatment, y = nr_seeds))
+  #ylim(0,125)
+  theme_classic()
+
+```
+
+```{r}
+#lets go 
+seedctwt3NO <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_outno)
+```
+
+```{r}
+# still similar too, seedctwt3NO
+plot(simulateResiduals(seedctwt3NO))
+# the residual patterns, there is a pattern but its okay 
+```
+
+  
+```{r}
+seed_corno <- seed_ctwt_outno %>% 
+   dplyr::select(total_nr_infl:nr_seeds) %>%  #Not sure if this is correct
+  cor(method = "pearson")
+```
+  
+```{r}
+#Create correlation plot
+corrplot(seed_corno, 
+         method = "ellipse", #Change shape of item in cells
+         addCoef.col = "black") #Add coefficient in black text
+```
+
+visually asses seed count and species 
+
+```{r}
+ggplot()+ 
+  geom_jitter(data = seed_clean, aes(x = species, y = nr_seeds, color = species))+ geom_boxplot(data = seed_clean, aes(x = species, y = nr_seeds))+ 
+  ylim(0,125)
+  
+  theme_classic()
+#there was an outlier at y-axis of 180 
+```
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
 
 ```{r}
 plot(simulateResiduals(seedctwt3.a))
@@ -366,7 +472,13 @@ indivflw_clean <- na.omit(individual_flower)
 
 ```{r}
 seed_cclean <- na.omit(seed_clean)
+
 ```
+```{r}
+View(seed_cclean)
+```
+
+
 
 ```{r}
 seed_ccleand <- seed_cclean %>% 

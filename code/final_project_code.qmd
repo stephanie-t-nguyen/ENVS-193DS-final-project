@@ -266,9 +266,9 @@ par(mfrow = c(2, 2))
 plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION 
 ```
 
-# START COPYING WORKSHOP 10
+# yes
 
-## From WORKSHOP 10
+## From 
 
 ```{r set-up}
 library(tidyverse)
