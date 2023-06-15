@@ -178,8 +178,8 @@ ggplot()+
 ```{r}
 # somthing is wrong with seed_cclean, for treatments 
 ggplot()+ 
-  geom_jitter(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds, color = treatment))+ geom_boxplot(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds))
-  #ylim(0,125)
+  geom_jitter(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds, color = treatment))+ geom_boxplot(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds))+
+  ylim(0,125)
   
   theme_classic()
 #there was an outlier at y-axis of 180 
