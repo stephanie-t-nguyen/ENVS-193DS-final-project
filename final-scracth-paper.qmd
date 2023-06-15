@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-#Final 
+#Final
 
 ```{r, libraries, include = FALSE}
 # model packages
@@ -40,7 +40,6 @@ Questions: How does seed count vary with plot type (shrub or open), plant specie
 Independent Variable: Seed Count
 
 Predictor Variable: Plot type (shrub or open) \[binary\], plant species , total number of inflorescences
-
 
 ```{r}
 
@@ -110,7 +109,6 @@ seedctwt3.a <- glmmTMB(nr_seeds ~ treatment + species + total_nr_infl, data = se
 
 ```
 
-
 ### Going to to use generalized Linear model with negative binomial distribution
 
 ```{r}
@@ -121,47 +119,41 @@ seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_
 plot(simulateResiduals(seedctwt3))
 ```
 
-## reason to why using 
+## reason to why using
 
 ```{r}
 MuMIn::model.sel(seed_L1,seedctwt2, seedctwt3)
 ```
 
+Call: glm.nb(formula = nr_seeds \~ treatment + species + total_nr_infl, data = seed_ctwt_subset, init.theta = 1.504930235, link = log)
 
-Call:
-glm.nb(formula = nr_seeds ~ treatment + species + total_nr_infl, 
-    data = seed_ctwt_subset, init.theta = 1.504930235, link = log)
+Deviance Residuals: Min 1Q Median 3Q Max\
+-3.4884 -0.9516 -0.2062 0.3100 2.7942
 
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--3.4884  -0.9516  -0.2062   0.3100   2.7942  
-
-Coefficients:
-               Estimate Std. Error z value Pr(>|z|)    
-(Intercept)     1.91762    0.22214   8.633  < 2e-16 ***
-treatmentshrub -0.34744    0.14433  -2.407   0.0161 *  
-speciesCARRUP  -1.56758    0.29371  -5.337 9.44e-08 ***
-speciesGEUROS  -0.17847    0.25235  -0.707   0.4794    
-speciesKOBMYO   0.19845    0.22373   0.887   0.3751    
-speciesMINOBT  -0.36228    0.23755  -1.525   0.1272    
-speciesTRIDAS   1.74077    0.85712   2.031   0.0423 *  
-total_nr_infl   0.07499    0.00559  13.416  < 2e-16 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Coefficients: Estimate Std. Error z value Pr(\>\|z\|)\
+(Intercept) 1.91762 0.22214 8.633 \< 2e-16 ***treatmentshrub -0.34744 0.14433 -2.407 0.0161*** **\
+speciesCARRUP -1.56758 0.29371 -5.337 9.44e-08** *speciesGEUROS -0.17847 0.25235 -0.707 0.4794\
+speciesKOBMYO 0.19845 0.22373 0.887 0.3751\
+speciesMINOBT -0.36228 0.23755 -1.525 0.1272\
+speciesTRIDAS 1.74077 0.85712 2.031 0.0423*\
+total_nr_infl 0.07499 0.00559 13.416 \< 2e-16 \*\*\* --- Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for Negative Binomial(1.5049) family taken to be 1)
 
-    Null deviance: 543.44  on 181  degrees of freedom
-Residual deviance: 213.68  on 174  degrees of freedom
-AIC: 1130.9
+```         
+Null deviance: 543.44  on 181  degrees of freedom
+```
+
+Residual deviance: 213.68 on 174 degrees of freedom AIC: 1130.9
 
 Number of Fisher Scoring iterations: 1
 
+```         
+          Theta:  1.505 
+      Std. Err.:  0.212 
+```
 
-              Theta:  1.505 
-          Std. Err.:  0.212 
-
- 2 x log-likelihood:  -1112.910 
+2 x log-likelihood: -1112.910
 
 ```{r}
 # when looking at the treatment shurb it was -0.34744,from summary, so it is in reference to the open plot
@@ -187,7 +179,6 @@ model_pred <- ggpredict(seedctwt3, terms = "treatment", back.transform = TRUE)
 model_pred
 ```
 
-
 ```{r}
 plot(ggpredict(seedctwt3, terms = "treatment", back.transform = TRUE))#same way but getting error 
 ```
@@ -210,7 +201,6 @@ seedctwt3 %>%
 #"treatment", "species", "total_nr_infl", "nr_seeds"
 ```
 
-
 ```{r}
  #predictions <- ggpredict(seedctwt3, terms = c("treatment", "species", "total_nr_infl", "nr_seeds")) %>% 
   #rename(nr_seeds = seed count,
@@ -228,13 +218,6 @@ seedctwt3 %>%
   #labs(fill = "Mined", color = "Mined")
 ```
 
-
-
-
 ```{r}
 
 ```
-
-
-
-
