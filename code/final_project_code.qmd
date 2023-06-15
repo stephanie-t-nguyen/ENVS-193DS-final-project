@@ -102,6 +102,7 @@ library(skimr)
 library(stringr)
 library(effsize)
 library(rstatix)
+library(flextable)
 ```
 
 ```{r}
@@ -111,7 +112,8 @@ kangaroo_rat <- here("data", "sev208_kratseedbank_20120213.txt") |> #File path
   mutate(loc = str_replace_all(loc, c("B" = "Base", #Replace code names with actual names
                                       "D" = "Surrounding",
                                       "E" = "Edge",
-                                      "I" = "Interspace")))
+                                      "I" = "Interspace"))) |> 
+  mutate(seeds = as.numeric(seeds))
 #Load in Problem 2 data
 pollinator <- here("data", "shrubstudy_pollinator.ms.data.csv") |> 
   read.csv()
@@ -161,22 +163,38 @@ par(mfrow = c(2, 2))
 plot(modelobject) #Data is not normal 
 ```
 
-**Figure ???**. Exploratory Data Visualization of Seeds vs Mound Location
+**Figure ???**. Diagnostic Plots for Kangaroo Rat Data
 
-\[insert caption here\]
+The Residual vs Fitted plot checks for constant variance (homoscedasticity) among the residuals. The Scale-Location plot also checks for homoscedasticity, but using the square root of the residuals; both plots show a change in pattern, where points decrease in density from bottom to top, suggesting heteroscedasticity. The Normal Q-Q plot suggests non-normality because of the deviation from the dotted line at the right tail end of the data. The Constant Leverage plot shows outliers in the data, but there do not appear to be any.
+
+```{r}
+#Statistical checks
+kr_model <- lm(seeds ~ loc, data = kangaroo_rat)
+check_normality(kr_model) #The data is not normal
+check_heteroscedasticity(kr_model) #The data is heteroscedastic
+```
 
 ```{r}
 kruskal_results <- kruskal.test(seeds ~ loc, data = kangaroo_rat) #p-value very small, evidence to reject the null, evidence that there is a difference in seed numbers among the mound locations
-
 kruskal_results 
 ```
 
 ```{r}
-
-kruskal_results <- kruskal.test(seeds ~ loc, data = kangaroo_rat)
 #Post-hoc tests to see how and which ranks differ
-rstatix::kruskal_effsize(kangaroo_rat$seeds, kangaroo_rat$loc)
+rstatix::kruskal_effsize(seeds ~ loc, data = kangaroo_rat, conf.level = 0.95) |> 
+  flextable() |> #Make data frame into a flex table object
+  set_header_labels(.y. = "Dependent Variable", #Change header labels to be meaningful 
+                    n = "Number of Observations", 
+                    effsize = "Effect Size",
+                    method = "Method",
+                    magnitude = "Magnitude")
+
+#Magnitude is very small, so the difference between seed number at different locations is significant but small
 ```
+
+**Figure ???**. Effect Size of Kruskal Wallis Test
+
+The table shows the results of calculating the effect size of the Kruskal Wallis Test.
 
 # Results Problem #1
 
