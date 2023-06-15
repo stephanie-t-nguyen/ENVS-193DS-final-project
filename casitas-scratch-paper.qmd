@@ -72,7 +72,7 @@ View(community_flower)
 
 ### Restart 
 
-Idk, had a problem with the fucntion select 
+Idk, had a problem with the function select 
 
 ```{r}
 seed_ctwt <- here("data", "shrubstudy_seed_ctwt.ms.data.csv") |> 
@@ -151,10 +151,6 @@ plot(simulateResiduals(seedctwt3.a))
 ```
 
 ### take-0.5. 
-
-```{r}
-
-```
 
 
 ### take-1, [aspect]
@@ -299,6 +295,9 @@ seed_ctwt_subset_tgnm <- seed_clean %>%
   drop_na(nr_seeds, tag_num)
 ```
 
+View(seed_ctwt_subset_tgnm)
+
+
 ```{r}
 seedctwtwttgnm <- glmer(nr_seeds ~ treatment + species + (1|tag_num) + total_nr_infl, data = seed_ctwt_subset_tgnm, family = "poisson" )
 ```
@@ -324,11 +323,11 @@ plot(simulateResiduals(seedctwtwtdc))
 ```
 
 
-
-
-
 ## Trying to merge the datasets now 
 
+```{r}
+
+```
 
 
 
