@@ -5,12 +5,26 @@ editor: visual
 ---
 
 ```{r, libraries}
+# model packages
+library(MASS) # have to read this in before tidyverse 
+library(lme4)
+library(glmmTMB) # ok if you don't have this - just comment it out
+
+# diagnostics and model info
+library(DHARMa)
+library(MuMIn)
+library(ggeffects)
+library(lmtest)
+library(broom)
+
 library(here)
 library(naniar)
 library(tidyverse)
 library(GGally)
 library(tidyr)
 library(corrplot)
+library(dplyr)
+library(janitor)
 ```
 
 # Scratch paper
@@ -45,6 +59,7 @@ View(pollinator)
 
 ```{r}
 View(seed_ctwt)
+colnames(seed_ctwt)
 ```
 
 ```{r}
@@ -55,76 +70,269 @@ View(individual_flower)
 View(community_flower)
 ```
 
-## peppas work 
+### Restart 
+
+Idk, had a problem with the fucntion select 
 
 ```{r}
+seed_ctwt <- here("data", "shrubstudy_seed_ctwt.ms.data.csv") |> 
+  read.csv()
+```
+
+```{r}
+gg_miss_var(seed_ctwt)
+```
+
+```{r}
+# from peppa 
 #Clean data
-seed_ctwt_subset <- seed_ctwt |> 
-  select(c("treatment", "species", "total_nr_infl", "nr_seeds")) |> #Plot type, plant species, total number of inflorescences - select relevant columns 
-  drop_na(nr_seeds) #Thats a lot of data missing... should we do anything? 
+
+
+#seed_ctwt_subset <- seed_ctwt |> 
+  #select(c("treatment", "species", "total_nr_infl", "nr_seeds")) |> #Plot type, plant species, total number of inflorescences - select relevant columns 
+  #drop_na(nr_seeds) #Thats a lot of data missing... should we do anything? 
 
 #Not quite sure what the total number of inflorescences vs inflorescence collected means
 ```
 
 ```{r}
-View(seed_ctwt)
-```
-
-
-
-
-
-
-
-
-```{r}
-#Delete this? 
-
-#Calculate Pearson's r for numerical values only 
-seed_cor <- seed_ctwt_subset |> 
-  dplyr::select(total_nr_infl:nr_seeds) |> #Not sure if this is correct
-  cor(method = "pearson")
-
-#Create correlation plot
-corrplot(seed_cor, 
-         method = "ellipse", #Change shape of item in cells
-         addCoef.col = "black") #Add coefficient in black text
+seed_clean <- seed_ctwt %>% 
+  clean_names()
 ```
 
 ```{r}
-seed_ctwt_subset |> 
-  dplyr::select(total_nr_infl:nr_seeds) |> #Not sure if this is correct either
-  ggpairs()
+colnames(seed_clean)
+View(seed_clean)
 ```
 
 ```{r}
-#Create a null and a full model - fit multiple linear models in order to see which one is best
-null <- lm(nr_seeds ~ 1, data = seed_ctwt_subset)
-#Assume no relationship between total mass and predictor variables 
-#1 indicates absence of all other predictors 
+seed_ctwt_subset2 <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds) %>% 
+  drop_na(nr_seeds)
 
-full <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
-#Assume predictor variables can predict biomass
 ```
 
 ```{r}
-par(mfrow = c(2, 2))
-plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION 
+View(seed_ctwt_subset2)
 ```
-
-How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
 
 ```{r}
-View(full)
+# linear model, we know this is wrong
+seed_L1 <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2)
+
+# generalized linear model with Poisson distribution
+seedctwt2 <-glm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2, family = "poisson")
+seedctwt2.a <- glm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2, family = "poisson")
+
+# generalized linear model with negative binomial distribution
+seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2)
+seedctwt3.a <- glmmTMB(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2, family = "nbinom2")
+
 ```
-
-
-
-## current work 
 
 ```{r}
-full_log <- lm(log(nr_seeds) ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
+plot(simulateResiduals(seed_L1))
 ```
+
+```{r}
+plot(simulateResiduals(seedctwt2))
+```
+
+```{r}
+plot(simulateResiduals(seedctwt2.a))
+```
+
+```{r}
+plot(simulateResiduals(seedctwt3))
+```
+
+```{r}
+plot(simulateResiduals(seedctwt3.a))
+```
+
+### take-0.5. 
+
+```{r}
+
+```
+
+
+
+### take-1, [aspect]
+to much multicollinerarity
+```{r}
+# trying aspect
+seed_ctwt_subset_as <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds, aspect) %>% 
+  drop_na(nr_seeds,aspect)
+```
+
+```{r}
+seedctwtas <- glmer(nr_seeds ~ treatment + species + (1|aspect) + total_nr_infl, data = seed_ctwt_subset_as, family = "poisson" )
+#Warning message:
+#In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  #Model is nearly unidentifiable: very large eigenvalue
+ #- Rescale variables?
+```
+
+```{r}
+plot(simulateResiduals(seedctwtas))
+```
+
+### take-2, [nr_infl_coll], got it to work but fail 
+```{r}
+# trying nr_infl_coll
+seed_ctwt_subset_nrf <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds,nr_infl_coll) %>% 
+  drop_na(nr_seeds,nr_infl_coll)
+```
+
+```{r}
+seedctwtnrf <- glmer(nr_seeds ~ treatment + species + (1|nr_infl_coll) + total_nr_infl, data = seed_ctwt_subset_nrf, family = "poisson" )
+```
+
+```{r}
+seedctwtnrf_5 <- glmer.nb(nr_seeds ~ treatment + species + (1|nr_infl_coll) + total_nr_infl, data = seed_ctwt_subset_nrf)
+```
+
+```{r}
+plot(simulateResiduals(seedctwtnrf_5))
+```
+
+```{r}
+plot(simulateResiduals(seedctwtnrf))
+```
+
+
+### take-3, [wt_seeds_mg], fail 
+```{r}
+# trying wt_seeds_mg
+seed_ctwt_subset_wtsm <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds, wt_seeds_mg) %>% 
+  drop_na(nr_seeds, wt_seeds_mg)
+```
+
+```{r}
+seedctwtwtsm <- glmer(nr_seeds ~ treatment + species + (1|wt_seeds_mg) + total_nr_infl, data = seed_ctwt_subset_wtsm, family = "poisson" )
+#Warning message:
+#In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  #Model failed to converge with max|grad| = 0.0199853 (tol = 0.002, component 1)
+```
+
+```{r}
+plot(simulateResiduals(seedctwtwtsm))
+```
+
+```{r}
+seedctwtwtsm_5 <- glmer.nb(nr_seeds ~ treatment + species + (1|wt_seeds_mg) + total_nr_infl, data = seed_ctwt_subset_wtsm)
+```
+
+```{r}
+plot(simulateResiduals(seedctwtwtsm_5))
+```
+
+
+### take-4 , [dist_fr_shr], fail
+```{r}
+# trying dist_fr_shr
+seed_ctwt_subset_dfs <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds, dist_fr_shr) %>% 
+  drop_na(nr_seeds, dist_fr_shr)
+```
+
+```{r}
+#seedctwtdfs <- glmer(nr_seeds ~ treatment + species + (1|dist_fr_shr) + total_nr_infl, data = seed_ctwt_subset_dfs, family = "poisson" )
+#Error in `contrasts<-`(`*tmp*`, value = contr.funs[1 + isOF[nn]]) : 
+  #contrasts can be applied only to factors with 2 or more levels
+```
+
+```{r}
+#plot(simulateResiduals(seedctwtdfs))
+```
+
+### take-5 [shrub_num]
+to much multicollinearity 
+
+```{r}
+seed_ctwt_subset_sn <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds, shrub_num) %>% 
+  drop_na(nr_seeds, shrub_num)
+```
+
+```{r}
+seedctwtwtsn <- glmer(nr_seeds ~ treatment + species + (1|shrub_num) + total_nr_infl, data = seed_ctwt_subset_sn, family = "poisson" )
+#Warning message:
+#In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  #Model is nearly unidentifiable: very large eigenvalue
+# - Rescale variables?
+```
+
+```{r}
+plot(simulateResiduals(seedctwtwtsn))
+```
+
+### take-6 [plant_nr]
+to much multicollinearity 
+```{r}
+seed_ctwt_subset_pn <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds, plant_nr) %>% 
+  drop_na(nr_seeds, plant_nr)
+```
+
+```{r}
+View(seed_ctwt_subset_pn)
+colnames(seed_ctwt_subset_pn)
+```
+
+```{r}
+seedctwtwtpn <- glmer(nr_seeds ~ treatment + species + (1|plant_nr) + total_nr_infl, data = seed_ctwt_subset_pn, family = "poisson" )
+```
+
+```{r}
+plot(simulateResiduals(seedctwtwtpn))
+```
+
+
+### take-7 [tag_num]
+to much multicollinearity 
+```{r}
+seed_ctwt_subset_tgnm <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds, tag_num) %>% 
+  drop_na(nr_seeds, tag_num)
+```
+
+```{r}
+seedctwtwttgnm <- glmer(nr_seeds ~ treatment + species + (1|tag_num) + total_nr_infl, data = seed_ctwt_subset_tgnm, family = "poisson" )
+```
+
+```{r}
+plot(simulateResiduals(seedctwtwttgnm))
+```
+
+### take-8
+to much multicollinearity 
+```{r}
+seed_ctwt_subset_dc <- seed_clean %>% 
+  select(treatment, species, total_nr_infl, nr_seeds, date_collected) %>% 
+  drop_na(nr_seeds, date_collected)
+```
+
+```{r}
+seedctwtwtdc <- glmer(nr_seeds ~ treatment + species + (1|date_collected) + total_nr_infl, data = seed_ctwt_subset_dc, family = "poisson" )
+```
+
+```{r}
+plot(simulateResiduals(seedctwtwtdc))
+```
+
+
+
+
+
+## Trying to merge the datasets now 
+
+
+
 
 
 
