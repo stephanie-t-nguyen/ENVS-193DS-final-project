@@ -17,6 +17,7 @@ library(ggeffects)
 library(lmtest)
 library(broom)
 
+#
 library(here)
 library(naniar)
 library(tidyverse)
@@ -25,6 +26,7 @@ library(tidyr)
 library(corrplot)
 library(dplyr)
 library(janitor)
+
 ```
 
 # Scratch paper
@@ -151,7 +153,25 @@ plot(simulateResiduals(seedctwt3.a))
 ```
 
 ### take-0.5. 
+```{r}
+install.packages("pscl")
+library(pscl)
+```
 
+
+```{r}
+# seed_L1 <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2) 
+
+
+zip_model <- zeroinfl(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset2, dist = "poisson")
+
+#Warning message:
+#glm.fit: fitted probabilities numerically 0 or 1 occurred 
+```
+
+```{r}
+plot(simulateResiduals(zip_model))
+```
 
 ### take-1, [aspect]
 to much multicollinerarity
@@ -205,6 +225,12 @@ seed_ctwt_subset_wtsm <- seed_clean %>%
   select(treatment, species, total_nr_infl, nr_seeds, wt_seeds_mg) %>% 
   drop_na(nr_seeds, wt_seeds_mg)
 ```
+
+```{r}
+View(seed_ctwt_subset_wtsm)
+```
+
+
 
 ```{r}
 seedctwtwtsm <- glmer(nr_seeds ~ treatment + species + (1|wt_seeds_mg) + total_nr_infl, data = seed_ctwt_subset_wtsm, family = "poisson" )
@@ -286,7 +312,6 @@ seedctwtwtpn <- glmer(nr_seeds ~ treatment + species + (1|plant_nr) + total_nr_i
 plot(simulateResiduals(seedctwtwtpn))
 ```
 
-
 ### take-7 [tag_num]
 to much multicollinearity 
 ```{r}
@@ -296,7 +321,6 @@ seed_ctwt_subset_tgnm <- seed_clean %>%
 ```
 
 View(seed_ctwt_subset_tgnm)
-
 
 ```{r}
 seedctwtwttgnm <- glmer(nr_seeds ~ treatment + species + (1|tag_num) + total_nr_infl, data = seed_ctwt_subset_tgnm, family = "poisson" )
@@ -321,6 +345,12 @@ seedctwtwtdc <- glmer(nr_seeds ~ treatment + species + (1|date_collected) + tota
 ```{r}
 plot(simulateResiduals(seedctwtwtdc))
 ```
+
+```{r}
+seedctwtwtdc_nb <- glmer.nb(nr_seeds ~ treatment + species + (1|date_collected) + total_nr_infl, data = seed_ctwt_subset_dc)
+
+```
+
 
 
 ## Trying to merge the datasets now 
