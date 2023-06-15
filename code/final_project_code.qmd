@@ -83,13 +83,7 @@ Siting data:
 
 # Introduction
 
-Kangaroo rats are
-
--   Summary of context article (The Composition of seed banks) Rat mound creates micro-environments that can effect seed banks or number of seeds, studies tend to show that there are more seeds around mounds
-
--   How does total seed number differ between kangaroo rat mound locations?
-
--   problem one context: [@koontz2010]
+Kangaroo rats build mounds that create micro-environments and foster more plant diversity than adjacent grassland [@guo1996]. Even within the same mound, there are different microhabitats depending on distance away from the mound [@koontz2010]. Using data from "Effects of Kangaroo Rat Mounds," our study investigates how total seed number differs between kangaroo rat mound locations (base of the mound, surrounding areas, edge of mound, and interspace between mound and grassland) [@koontz2013]. Our null hypothesis states that there is no difference in number of seeds between the different kangaroo rat mound locations. Our alternative hypothesis states that some locations of the mound support more seeds than others.
 
 ### Set Up
 
@@ -105,13 +99,19 @@ library(GGally)
 library(tidyr)
 library(corrplot)
 library(skimr)
+library(stringr)
+library(effsize)
+library(rstatix)
 ```
 
 ```{r}
 #Load in Problem 1 data
 kangaroo_rat <- here("data", "sev208_kratseedbank_20120213.txt") |> #File path
-  read.csv(header= TRUE, sep =",", quote = "") #Has header, delimiter is comma, no quoting
- 
+  read.csv(header= TRUE, sep =",", quote = "") |> #Has header, delimiter is comma, no quoting
+  mutate(loc = str_replace_all(loc, c("B" = "Base", #Replace code names with actual names
+                                      "D" = "Surrounding",
+                                      "E" = "Edge",
+                                      "I" = "Interspace")))
 #Load in Problem 2 data
 pollinator <- here("data", "shrubstudy_pollinator.ms.data.csv") |> 
   read.csv()
@@ -138,18 +138,19 @@ gg_miss_var(kangaroo_rat) #No data missing
 The y-axis are the variables (columns in the dataframe and the x-axis marks how many rows have missing data per variable.
 
 ```{r}
-#Exploratory data visualization, quite hard to tell the relationship between location and number of seeds, there are a lot of data clustered at zero
+#Exploratory data visualization, looks like locations closet to mound have most seeds, but we should further explore
 ggplot() + 
-  geom_jitter(data = kangaroo_rat, aes(x = loc, y = seeds, color = loc), alpha = 0.4) + 
-  theme_bw() + 
-  theme(legend.position = "none") + 
-  labs(x = "Mound Location", 
-       y = "Number of Seeds")
+  geom_jitter(data = kangaroo_rat, aes(x = loc, y = seeds, color = loc), alpha = 0.4) + #Create jitter plot of seed count observations 
+  theme_bw() + #Set theme
+  theme(legend.position = "none") + #Omit legend
+  labs(x = "Mound Location", #Label axes
+       y = "Number of Seeds") + 
+  scale_x_discrete(limits = c("Base", "Surrounding", "Edge", "Interspace")) #Reorder locations from closet to furthest
 ```
 
 **Figure ???**. Exploratory Data Visualization of Seeds vs Mound Location
 
-This figure plots observations of the number of seeds found at each mound location.
+This figure plots observations of the number of seeds found at each mound location. The locations are in order from closet to furthest from the mound, from the base of the mound to the interspace adjacent to the grassland.
 
 ```{r}
 #Create model to further explore relationship
@@ -162,16 +163,19 @@ plot(modelobject) #Data is not normal
 
 **Figure ???**. Exploratory Data Visualization of Seeds vs Mound Location
 
-This figure plots obse
+\[insert caption here\]
 
 ```{r}
-#Kruskal-Wallis test
-model_summary <- summary(modelobject)
-model_summary
+kruskal_results <- kruskal.test(seeds ~ loc, data = kangaroo_rat) #p-value very small, evidence to reject the null, evidence that there is a difference in seed numbers among the mound locations
+
+kruskal_results 
 ```
 
 ```{r}
-kruskal.test(seeds ~ loc, data = kangaroo_rat) #p-value very small, evidence to reject the null, evidence that there is a difference in seed numbers among the mound locations
+
+kruskal_results <- kruskal.test(seeds ~ loc, data = kangaroo_rat)
+#Post-hoc tests to see how and which ranks differ
+rstatix::kruskal_effsize(kangaroo_rat$seeds, kangaroo_rat$loc)
 ```
 
 # Results Problem #1
