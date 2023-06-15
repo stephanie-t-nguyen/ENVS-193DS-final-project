@@ -157,7 +157,6 @@ plot(simulateResiduals(seedctwt3.a))
 ```
 
 
-
 ### take-1, [aspect]
 to much multicollinerarity
 ```{r}
@@ -202,7 +201,6 @@ plot(simulateResiduals(seedctwtnrf_5))
 ```{r}
 plot(simulateResiduals(seedctwtnrf))
 ```
-
 
 ### take-3, [wt_seeds_mg], fail 
 ```{r}
@@ -309,7 +307,7 @@ seedctwtwttgnm <- glmer(nr_seeds ~ treatment + species + (1|tag_num) + total_nr_
 plot(simulateResiduals(seedctwtwttgnm))
 ```
 
-### take-8
+### take-8 [data_collected]
 to much multicollinearity 
 ```{r}
 seed_ctwt_subset_dc <- seed_clean %>% 
