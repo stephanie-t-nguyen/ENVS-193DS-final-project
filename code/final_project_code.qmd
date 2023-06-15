@@ -159,7 +159,8 @@ The y-axis are the variables (columns in the dataframe and the x-axis marks how 
 kangaroo_rat_subset <- kangaroo_rat |> 
   filter(!grepl("soil|gravel|dist|litter|plant", species)) |>  #Filter out irrevelant columns (physical descriptors)
   group_by(mnd, dir, loc) |> #Group to get total seeds per mound location
-  summarize(total_seeds = sum(seeds))
+  summarize(total_seeds = sum(seeds)) |>
+  ungroup()
 ```
 
 ```{r}

@@ -186,6 +186,9 @@ ggplot()+
 
 ```
 
+
+
+
 ```{r}
 # removing the outlier from seed_ctwt_subset 
 seed_ctwt_outno <- seed_ctwt_subset %>% filter(nr_seeds<117)
@@ -198,11 +201,14 @@ ggplot()+
   #ylim(0,125)
   theme_classic()
 
+  
+
 ```
 
 ```{r}
 #lets go 
 seedctwt3NO <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_outno)
+
 ```
 
 ```{r}
