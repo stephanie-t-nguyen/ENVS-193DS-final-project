@@ -236,6 +236,8 @@ There were four datasets the study that they came from, but we only used one of 
 
 To get a better understanding of the dataset, we ran a series of tests and created visualizations that helped us understand the relationship between variables. As shown in figure 1, there are variables in the dataset that have missing data. However, the number of missing data is not too significant and we still have a large number of observations to work with. We still subsetted the data to drop the missing data. As shown in figure 2, we calculated Pearson\'s correlation to determine the relationships between numerical values of number of inflorescences and total seed
 
+In order for us to determine how seed count varies with plot type, plant species, and total number of inflorescences, we created three models. We did not use linear regression models because the models did not conform to the assumptions of linear regression. Instead, we used generalized linear models with a negative binomial distribution.
+
 ```{r}
 gg_miss_var(pollinator) #Most of tag_num missing
 gg_miss_var(seed_ctwt) #Most of dist_fr_shr, wt_seeds_mg, nr_seeds missing
