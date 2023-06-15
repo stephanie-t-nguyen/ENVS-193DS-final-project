@@ -226,7 +226,13 @@ The table shows the results of calculating the effect size of the Kruskal Wallis
 
 -   low p-value suggests evidence to reject null hypothesis, difference in medians among locations
 
+# Introduction Problem #2
+
+The Niwot Ridge is an alpine ecosystem that consists of cold, snowy, and windy climates and low temperatures during the growing season (Edwards et al., 2007). Despite these conditions, many plants have adapted to this environment.  Learning more about these plants can better inform us of plants that live in their climate limits (Germino, 2014). Seed count is the number of seeds produced by a plant that is commonly used to determine the plant\'s fitness (Wen and Simmons, 2020). Plants have numerous biological and physical factors that can contribute to their seed count. Using data from \"Individual and community flowering phenology, seed counts and pollinator visitation rates in shrub and open plots across Niwot Ridge, 2019 - 2021\", we will investigate how the seed count of plants in the Niwot Ridge varies with total number of inflorescences, plant species, and plot type. We hypothesize that plant species and number of inflorescences will be the biggest factors in determining seed count.
+
 # Methods Problem #2
+
+There were four datasets the study that they came from, but we only used one of them called seed count weight. We did this because seed count weight contained all of the variables that we were using to compare seed count such as total number of inflorescence, plant species, and plot type. Seaver counted the number of seeds by breaking up dried buds with her fingers and counting all the viable seeds. A seed was \"viable\" if it had a plump look and feel compared to an aborted seed that was clearly shriveled and small. The seeds were collected from five different species: Geuros, Kobmyo, Carrup, Arefen, and Minobt. Viable seeds were recorded and put into envelopes that had their respective species, plot number, and number of inflorescences collected (Seaver, 2022).
 
 ```{r}
 gg_miss_var(pollinator) #Most of tag_num missing
