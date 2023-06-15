@@ -104,6 +104,7 @@ library(effsize)
 library(rstatix)
 library(flextable)
 library(performance)
+library(base)
 ```
 
 ```{r}
@@ -114,7 +115,9 @@ kangaroo_rat <- here("data", "sev208_kratseedbank_20120213.txt") |> #File path
                                       "D" = "Surrounding",
                                       "E" = "Edge",
                                       "I" = "Interspace"))) |> 
-  mutate(seeds = as.numeric(seeds))
+  mutate(seeds = as.numeric(seeds)) #Make sure data is numeric
+  
+  
 #Load in Problem 2 data
 pollinator <- here("data", "shrubstudy_pollinator.ms.data.csv") |> 
   read.csv()
@@ -153,14 +156,23 @@ gg_miss_var(kangaroo_rat) #No data missing
 The y-axis are the variables (columns in the dataframe and the x-axis marks how many rows have missing data per variable.
 
 ```{r}
+kangaroo_rat_subset <- kangaroo_rat |> 
+  filter(!grepl("soil|gravel|dist|litter|plant", species)) |>  #Filter out irrevelant columns (physical descriptors)
+  group_by(mnd, dir, loc) |> #Group to get total seeds per mound location
+  summarize(total_seeds = sum(seeds))
+```
+
+```{r}
 #Exploratory data visualization, looks like locations closet to mound have most seeds, but we should further explore
 ggplot() + 
-  geom_jitter(data = kangaroo_rat, aes(x = loc, y = seeds, color = loc), alpha = 0.4) + #Create jitter plot of seed count observations 
+  geom_boxplot(data = kangaroo_rat_subset, aes(x = loc, y = total_seeds, color = loc)) +
+  geom_jitter(data = kangaroo_rat_subset, aes(x = loc, y = total_seeds, color = loc), alpha = 0.4) + #Create jitter plot of seed count observations 
   theme_bw() + #Set theme
   theme(legend.position = "none") + #Omit legend
   labs(x = "Mound Location", #Label axes
        y = "Number of Seeds") + 
   scale_x_discrete(limits = c("Base", "Surrounding", "Edge", "Interspace")) #Reorder locations from closet to furthest
+  
 ```
 
 **Figure 2.** Exploratory Data Visualization of Seeds vs Mound Location
@@ -169,7 +181,7 @@ This figure plots observations of the number of seeds found at each mound locati
 
 ```{r}
 #Create model to further explore relationship
-modelobject <- lm(seeds ~ loc, data = kangaroo_rat)
+modelobject <- lm(total_seeds ~ loc, data = kangaroo_rat_subset)
 
 #Visualize models - diagnostic plots in a grid 
 par(mfrow = c(2, 2))
@@ -182,19 +194,19 @@ The Residual vs Fitted plot checks for constant variance (homoscedasticity) amon
 
 ```{r}
 #Statistical checks
-kr_model <- lm(seeds ~ loc, data = kangaroo_rat)
+kr_model <- lm(total_seeds ~ loc, data = kangaroo_rat_subset)
 check_normality(kr_model) #The data is not normal
 check_heteroscedasticity(kr_model) #The data is heteroscedastic
 ```
 
 ```{r}
-kruskal_results <- kruskal.test(seeds ~ loc, data = kangaroo_rat) #p-value very small, evidence to reject the null, evidence that there is a difference in seed numbers among the mound locations
+kruskal_results <- kruskal.test(total_seeds ~ loc, data = kangaroo_rat_subset) #p-value very small, evidence to reject the null, evidence that there is a difference in seed numbers among the mound locations
 kruskal_results 
 ```
 
 ```{r}
 #Post-hoc tests to see how and which ranks differ
-rstatix::kruskal_effsize(seeds ~ loc, data = kangaroo_rat, conf.level = 0.95) |> 
+rstatix::kruskal_effsize(total_seeds ~ loc, data = kangaroo_rat_subset, conf.level = 0.95) |> 
   flextable() |> #Make data frame into a flex table object
   set_header_labels(.y. = "Dependent Variable", #Change header labels to be meaningful 
                     n = "Number of Observations", 
@@ -268,7 +280,7 @@ plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION
 
 # yes
 
-## From 
+## From
 
 ```{r set-up}
 library(tidyverse)
