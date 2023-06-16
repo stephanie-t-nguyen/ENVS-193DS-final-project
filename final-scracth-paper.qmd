@@ -8,6 +8,7 @@ editor: visual
 
 ```{r, libraries, include = FALSE}
 # model packages
+library(here)
 library(MASS) # have to read this in before tidyverse 
 library(lme4)
 library(glmmTMB) # ok if you don't have this - just comment it out
@@ -18,9 +19,7 @@ library(MuMIn)
 library(ggeffects)
 library(lmtest)
 library(broom)
-
 #
-library(here)
 library(naniar)
 library(tidyverse)
 library(GGally)
@@ -30,7 +29,6 @@ library(dplyr)
 library(janitor)
 library(ggplot2)
 library(flextable)
-
 ```
 
 ## Problem two

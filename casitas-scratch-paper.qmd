@@ -113,10 +113,10 @@ View(seed_clean)
 ```
 
 ```{r}
+library(dplyr)
 seed_ctwt_subset2 <- seed_clean %>% 
-  select(treatment, species, total_nr_infl, nr_seeds) %>% 
+  select(treatment,species,total_nr_infl,nr_seeds) %>% 
   drop_na(nr_seeds)
-
 ```
 
 ```{r}
@@ -470,7 +470,7 @@ colnames(seed_cclean)
 ```
 
 ```{r}
-indivflw_clean <- na.omit(individual_flower)
+ndivflw_clean <- na.omit(individual_flower)
 ```
 
 ```{r}
@@ -492,15 +492,15 @@ View(seed_ccleand)
 ```
 
 ```{r}
-seed_clean
+#seed_clean
 
-seed_ctwt_subset2
+#seed_ctwt_subset2
 
-individual_flower
+#individual_flower
 
-merge_sflower <- inner_join(seed_ccleand, indivflw_clean, by = c("treatment","species","plant_nr","date", "shrub_num", "dist_fr_shr"))
+#merge_sflower <- inner_join(seed_ccleand, indivflw_clean, by = c("treatment","species","plant_nr","date", "shrub_num", "dist_fr_shr"))
 ```
 
 ```{r}
-View(merge_sflower)
+#View(merge_sflower)
 ```
