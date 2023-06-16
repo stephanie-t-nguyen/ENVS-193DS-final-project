@@ -1,6 +1,6 @@
 ---
 title: "Final Project Code"
-author: "Kyle Cahitas, Stephanie Nguyen"
+author: "Kyle Cahitas, Stephanie Nguyen, William Yip"
 date: "June 9, 2023"
 format:
   html:
@@ -353,7 +353,6 @@ seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_
 plot(simulateResiduals(seedctwt3))
 ```
 Figure 5.
-
 
 ```{r}
 # model object in table
