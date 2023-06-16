@@ -186,9 +186,6 @@ ggplot()+
 
 ```
 
-
-
-
 ```{r}
 # removing the outlier from seed_ctwt_subset 
 seed_ctwt_outno <- seed_ctwt_subset %>% filter(nr_seeds<117)

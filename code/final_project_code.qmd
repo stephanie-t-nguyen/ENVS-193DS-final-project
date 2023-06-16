@@ -15,75 +15,11 @@ execute:
 bibliography: references.bib
 ---
 
-### Notes \[DELETE LATER\]
+# Introduction #1
 
-Problem #1: How does total seed number differ between kangaroo rat mound locations?
+Kangaroo rats build mounds that create micro-environments and foster more plant diversity than adjacent grassland [@guo1996]. Even within the same mound, there are different microhabitats depending on distance away from the mound [@koontz2010]. Using data from "Effects of Kangaroo Rat Mounds," our study investigates how total seed number differs between kangaroo rat mound locations (base of the mound, surrounding areas, edge of mound, and interspace between mound and grassland) [@koontz2013].
 
-Summary of context article (The Composition of seed banks) Rat mound creates micro-environments that can effect seed banks or number of seeds, studies tend to show that there are more seeds around mounds
-
--   probably do a single linear regression like in homework 4? Have to use Kruskel test instead of ANOVA because data is non-normal
-
-Data Dictionary:
-
--   mnd: kangaroo rat mound (location)
-
--   dir: direction from center of the mound
-
--   loc: microhabitat (B = base, S = surrounding, E = edge, I = interspace)
-
--   species: four letter code for target taxa
-
--   seeds: seed counts for species and percent cover for physical variables
-
-Problem #2: How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
-
--   probably do a multiple linear regression like in homework 5? --actually we CAN"T because the data is not normal
-
-Summary: Because of climate change "shrubfication is happening in the tundra, where more shrubs are growing in the tundra, which would effect the ecosystem there. On average, there are more flowers in open plots vs shrub plots. Shrub plots are plots that have undergone shrubfication. Open plots have not experienced shrubfication yet.
-
-Data Table/Dictionary
-
-pollinator: observations of pollinators visiting plots
-
--   shrub_num: shrub ID
-
--   treatment: open or shrub plot
-
--   pollinator_ID: what type of pollinator
-
--   cloud_cover: "rough % cloud cover" - whatever that means
-
--   wind: wind speed (mph) - probably because it affects pollinators
-
-seed_ctwt
-
--   species_ID: what plant
-
--   plant_nr: plant number, what number 1-5 plant was assigned to
-
--   total_nr_infl: total number of inflorescenses
-
--   nr_infl_coll: number of inforesecenses collected
-
--   nr_seeds: seed numbers
-
--   wt_seeds_mg: seed weights
-
-individual_flower
-
-community_flower
-
-Siting data:
-
--   problem one data: [@koontz2013]
-
--   problem one context: [@koontz2010]
-
--   problem two data: [@seaver2022]
-
-# Introduction
-
-Kangaroo rats build mounds that create micro-environments and foster more plant diversity than adjacent grassland [@guo1996]. Even within the same mound, there are different microhabitats depending on distance away from the mound [@koontz2010]. Using data from "Effects of Kangaroo Rat Mounds," our study investigates how total seed number differs between kangaroo rat mound locations (base of the mound, surrounding areas, edge of mound, and interspace between mound and grassland) [@koontz2013]. Our null hypothesis states that there is no difference in number of seeds between the different kangaroo rat mound locations. Our alternative hypothesis states that some locations of the mound support more seeds than others.
+Our null hypothesis states that there is no difference in number of seeds between the different kangaroo rat mound locations, meaning that the mounds likely do not create or foster more plant diversity. Our alternative hypothesis states that some locations of the mound support more seeds than others, meaning that the microhabitats created by the mounds likely foster more plant diversity than regular grassland soil.
 
 ### Set Up
 
@@ -119,26 +55,24 @@ kangaroo_rat <- here("data", "sev208_kratseedbank_20120213.txt") |> #File path
   
 ```
 
-# Methods Problem #1
+# Methods #1
 
-The data was collected by...
+Koontz et al. randomly chose 10 out of 25 active kangaroo rat mounds to survey. The mound soil was then divided into four groups in increasing distance from the center of the mound: base, surrounding, edge, and interspace [@koontz2010]. The soil from each location was sieved for seeds, counted, and recorded into a dataframe called kangaroo_rat [@koontz2010]. Refer to the data dictionary at the bottom of the page for explanations of column names. 
 
-The data was cleaned by...(Figure 1) no missing data
+The dataframe was checked for missing data, but no data was missing (Figure 1). Then, the data was grouped by location to get the total, rather than individual, seed counts of each mound location in the dataframe kangaroo_rat_subset. The data also contained irrelevant rows with information on physical descriptors of the mound, which was filtered out [@koontz2010]. This is the dataframe we used going forward with the analysis. 
 
-An exploratory data visualization was creating plotting the number of seeds at each of the four mound locations (Figure 2). At a glance, it appears that the closer the location to the mound, the more seeds tended to be observed there, however, many observations tended to cluster at zero.
+An exploratory data visualization was created plotting the total seeds at each of the four mound locations (Figure 2). At a glance, it appears that soils closer to the mound base have more seeds. To further investigate the data was visually (Figure 3) and statistically checked for homoscedasticity and normality. According to these checks, the data was both heteroscedastic and non-normal, meaning a non-parametric model must be used. 
 
-To further investigate, the data was visually (Figure 3) and statistically checked for homoscedasticity and normality. According to the checks, the data was both heteroscedastic and non-normal.
+Thus, a Kruskel-Wallis test was run. The Kruskel-Wallis test is a non-parametric test to compare the ranks of three or more indepndent groups [@mckight2010]. It is best used for categorical predictor variables, and data sets of at least 5 per group, and our data meets all of these assumptions. The calculated p-value of the test was very small (\<0.0001), which means that the difference in seed count between locations is significant (Figure 4) [@https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/kruskal.test].
 
-Thus, a Kruskel-Wallis test was run. The Kruskel-Wallis test ......
-
-The effect size indicates that the difference in seed counts between mound locations is significant but small.
+Afterwards, the Kruskel effect size was calculated to be 0.442 (Figure 5). This is a large magnitude, meaning that the differences in total seeds between different locations is big and distinct; there is little overlap between the data from different locations.
 
 ```{r}
 #Missing data check
 gg_miss_var(kangaroo_rat) #No data missing
 ```
 
-**Figure 1.** Visualization of Missing Data in "kangaroo_rat" dataframe
+**Figure 1.** Visualization of Missing Data in "kangaroo_rat" Dataframe
 
 The y-axis are the variables (columns in the dataframe and the x-axis marks how many rows have missing data per variable.
 
@@ -188,9 +122,21 @@ check_heteroscedasticity(kr_model) #The data is heteroscedastic
 ```
 
 ```{r}
-kruskal_results <- kruskal.test(total_seeds ~ loc, data = kangaroo_rat_subset) #p-value very small, evidence to reject the null, evidence that there is a difference in seed numbers among the mound locations
+#Run Kruskel Test
+kruskal_results <- kruskal.test(total_seeds ~ loc, data = kangaroo_rat_subset) |> #Run test
+  tidy() |> #Make into dataframe
+  mutate(p.value = case_when(p.value < 0.0001 ~ "<0.0001")) |> #Replace p-value
+  flextable() |> #Make into a flextable
+  set_header_labels(statistic = "Statistic", #Change header labels to be meaningful 
+                    p.value = "p-value", 
+                    parameter = "Parameter",
+                    method = "Method")
 kruskal_results 
 ```
+
+**Figure 4.** Results Kruskel Wallis Test
+
+The table shows the results of the Kruskel Wallis test. Note the p-value was changed from its actual value to a range to avoid a cutoff in numbers.
 
 ```{r}
 #Post-hoc tests to see how and which ranks differ
@@ -202,16 +148,50 @@ rstatix::kruskal_effsize(total_seeds ~ loc, data = kangaroo_rat_subset, conf.lev
                     method = "Method",
                     magnitude = "Magnitude")
 
-#Magnitude is very small, so the difference between seed number at different locations is significant but small
+#Magnitude is very big, so the difference between seed number at different locations is significant and big
 ```
 
-**Figure 4.** Effect Size of Kruskal Wallis Test
+**Figure 5.** Effect Size of Kruskel Wallis Test
 
-The table shows the results of calculating the effect size of the Kruskal Wallis Test.
+The table shows the results of calculating the effect size of the Kruskel Wallis Test.
 
-# Results Problem #1
+# Results #1
 
--   low p-value suggests evidence to reject null hypothesis, difference in medians among locations
+The data was statistically and visually checked; it was non-normal, heteroscedastic, and categorical, so the Kruskel Wallis test was determined to be the most suitable test to run. The Kruskel test calculated a chi-squared value of 54.269, degrees of freedom of 3, and a p-value of 9.83e-12 assuming a confidence level of 0.95 (Figure 4). The Kruskel test determines distinct each mound location (base, surroundings, edge, and interspace) is from each other. The extremely small p-value indicates that there is strong evidence to suggest rejecting the null hypothesis and supporting the alternative hypothesis: some mound locations have more total seeds than others. To check in which direction mound locations have more seeds than others, a visualization was made (Figure 6). Figure 6 shows a correlation between increasing proximity to the mound and a greater number of seeds.
+
+To further check the significance of the Kruskel test, the effect size was calculated to be 0.44 (Figure 5). This is a large effect size, meaning that the differences in seeds between locations is not only significant but also big in magnitude.
+
+Biologically, this suggests that microhabitats are created by kangaroo rat mounds that are different from adjacent grassland. Furthermore, even within each mound, depending on distance away from the mound, there are different and distinct microhabitats. Soil closer to the mound tend to foster more seeds by a large magnitude.
+
+```{r}
+#Create summary statistics table for kangaroo_rat
+kangaroo_rat_summary <- kangaroo_rat_subset |> 
+  group_by(loc) |> #Group by location 
+  summarize(mean_1 = mean(total_seeds), #Summarize mean, sd, var, and margin of error
+        	sd_1 = sd(total_seeds),
+        	var_1  = var(total_seeds),
+        	count_1  = length(total_seeds),
+        	se_1 = sd_1/sqrt(count_1),
+        	margin_1 = qt(0.95, df = count_1 - 1) * se_1)
+
+#Create ggplot of main results
+ggplot(data = kangaroo_rat_summary, aes(x = loc, y = mean_1, color = loc)) +
+  geom_point(size = 3) +
+  geom_linerange(aes(ymin = mean_1 - margin_1, ymax = mean_1 + margin_1),
+             	linewidth = 1) +
+  geom_jitter(data = kangaroo_rat_subset, aes(x = loc, y = total_seeds), alpha = 0.3) +
+  theme_bw() +
+  theme(legend.position = "none",
+    	axis.title = element_text(size = 14),
+    	axis.text = element_text(size = 12)) +
+  labs(x = "Mound Location", y = "Total Number of Seeds") +
+  scale_x_discrete(limits = c("Base", "Surrounding", "Edge", "Interspace")) +
+  ylim(0, 400)
+```
+
+**Figure 6.** Mound Location in Correlation with Total Number of Seeds
+
+The plot shows locations of the mound from closest to furthest from the mound, versus total number of seeds. The bigger dot represents the mean of total seeds per location and the bars represent the margin of error with a 95% confidence interval. Note that 6 data points are not shown because of y-axis limit for aesthetic reasons.
 
 # Introduction Problem #2
 
@@ -219,7 +199,7 @@ The Niwot Ridge is an alpine ecosystem that consists of cold, snowy, and windy c
 
 # Methods Problem #2
 
-There were four datasets the study that they came from, but we only used one of them called seed count weight. We did this because seed count weight contained all of the variables that we were using to compare seed count such as total number of inflorescence, plant species, and plot type. Seaver counted the number of seeds by breaking up dried buds with her fingers and counting all the viable seeds. A seed was "viable" if it had a plump look and feel compared to an aborted seed that was clearly shriveled and small. The seeds were collected from five different species: Geuros, Kobmyo, Carrup, Arefen, and Minobt. Viable seeds were recorded and put into envelopes that had their respective species, plot number, and number of inflorescences collected (Seaver, 2022).
+There were four datasets the study that they came from, but we only used one of them called seed count weight. We did this because seed count weight contained all of the variables that we were using to compare seed count such as total number of inflorescence, plant species, and plot type. Seaver counted the number of seeds by breaking up dried buds with her fingers and counting all the viable seeds. A seed was "viable" if it had a plump look and feel compared to an aborted seed that was clearly shriveled and small. The seeds were collected from five different species: Geuros, Kobmyo, Carrup, Arefen, and Minobt. Viable seeds were recorded and put into envelopes that had their respective species, plot number, and number of inflorescences collected [@seaver2022].
 
 To get a better understanding of the dataset, we ran a series of tests and created visualizations that helped us understand the relationship between variables. As shown in figure 1, there are variables in the dataset that have missing data. However, the number of missing data is not too significant and we still have a large number of observations to work with. We still subsetted the data to drop the missing data. As shown in figure 2, we used the ggpairs function to create plots that we can use to visually assessed the relationships between variables. We found that the number of influoresences and seed count had a strong Pearson's correlation, but there seemed to be no relationship between variables based on visual assessment of the scatter plot and bar graphs. As shown in figure 3, we calculated Pearson's correlation to determine the relationships between numerical values of number of inflorescence and total seed count. We found that there was a strong correlation between number of inflorescnece and total seed count. The Pearson's correlation was a 0.93 which is a considered a strong correlation.
 
