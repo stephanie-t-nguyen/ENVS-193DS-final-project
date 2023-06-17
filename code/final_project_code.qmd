@@ -366,6 +366,8 @@ ggplot() +
 
 **Figure 6.**
 
+This plot demonstrates a better understanding of the variable treatmentshrub. Two plots are shown each representing a open plot and a shrub plot. The box plots are a visual representation of the data, with the central tendency and represents that the data skews towards the top of the open plot. Additionally, the x-axis is represented by plots and the y-axis is demonstrated by seed count.
+
 ```{r}
 # model object in table
 seedctwt3 %>% 
@@ -419,6 +421,6 @@ Each plot demonstrates a plant species, with a total of six plots. The x-axis de
 
 We used a generalized linear model with a negative binomial distribution to test the predictor variables: plant species, plot type and total number of inflorescences and the independent variable of seed count. The p-value for the predictor variable treatment was 0.0161 and the p-value for the total number of inflorescences was \<0.001. The Pearson correlation between seed count and total number of inflorescences was +0.95. After running a summary function, the treatmentshrub estimation was -0.347 and had a p-value of 0.0161. Figure 6 visually demonstrates the -0.347 is statistically significant, in such that shrub plots have less seed counts than open (control) plots. Lastly, figure 7 visually demonstrates how seed counts vary by each species. 
 
-Biologically, this suggests that plot types, total number of inflorescences and certain plant species demonstrates seed count vary.
+Biologically, this suggests that plot types, total number of inflorescences and certain plant species demonstrates seed count vary. The difference of seed counts among the open and shrub plots could be from bird density. But more data is needed in order to statistically demonstrate the influence of birds. There was a a difference in seed count among plant species and this can be attributed to the vast ways and differences plants distribute their seed. Lastly, the most prominent evidence was from the Pearsons correlation demonstrating that there is a strong correlation between the number of inflorescence and seed count. This biologically makes sense, as flowers are very important for a plant reproductive life.
 
 # References
