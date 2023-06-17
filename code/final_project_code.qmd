@@ -254,20 +254,14 @@ gg_miss_var(seed_ctwt) #Most of dist_fr_shr, wt_seeds_mg, nr_seeds missing
 
 Figure 1.
 
-```{r}
+```{r, include = FALSE}
 colnames(seed_ctwt)
 ```
 
 ```{r}
+#selecting certain columns to answer question
 seed_ctwt_subset <- dplyr::select(seed_ctwt,"treatment", "species", "total_nr_infl", "nr_seeds") %>%  
-  drop_na(nr_seeds)
-```
-
-```{r}
-#seed_ctwt_subset <- seed_ctwt |> 
-  #select(c("treatment", "species", "total_nr_infl", "nr_seeds")) |> #Plot type, plant species, total number of inflorescences - select relevant columns 
-  #drop_na(nr_seeds) #Thats a lot of data missing... should we do anything? 
-#Not quite sure what the total number of inflorescences vs inflorescence collected means
+  drop_na(nr_seeds) #dropping Na values
 ```
 
 ```{r}
@@ -302,6 +296,7 @@ full <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subs
 ```
 
 ```{r}
+#Exploratory data visualization
 par(mfrow = c(2, 2))
 plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION 
 ```
@@ -311,7 +306,7 @@ Figure 4.
 ### Regression 
 
 ```{r}
-# linear model, we know this is wrong
+# Linear model 
 seed_L1 <- lm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
 
 # generalized linear model with Poisson distribution
@@ -320,28 +315,35 @@ seedctwt2.a <- glm(nr_seeds ~ treatment + species + total_nr_infl, data = seed_c
 
 # generalized linear model with negative binomial distribution
 seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
-seedctwt3.a <- glmmTMB(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset, family = "nbinom2")
 
 ```
 
 ```{r}
+#using function model.sel , to decide what distribution to use
 MuMIn::model.sel(seed_L1,seedctwt2, seedctwt3)
 ```
 
 ### Going to to use Generalized Linear Model with negative binomial distribution
 
 ```{r}
+# generalized linear model with negative binomial distribution
 seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
 ```
 
 ```{r}
+# visual of a generalized linear model with negative binomial distribution
 plot(simulateResiduals(seedctwt3))
 ```
 
 Figure 5.
 
 ```{r}
-# when looking at the treatment shurb it was -0.34744,from summary, so it is in reference to the open plot
+#summary of GLM
+summary(seedctwt3)
+```
+
+```{r}
+# visually exploring "
 ggplot()+ 
   geom_jitter(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds, color = treatment))+ 
   geom_boxplot(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds))+
@@ -359,19 +361,22 @@ seedctwt3 %>%
 ```
 
 ```{r}
+#confidence interval
 confint(seedctwt3)
 ```
 
 ```{r}
+# adjusted R2
 r.squaredGLMM(seedctwt3)
 ```
 
 ```{r}
+#creating a new dataframe to predict values for all levels 
 predictions <- ggpredict(seedctwt3, terms = c("total_nr_infl","treatment", "species")) %>% 
   
   rename(treatment = group,
          species = facet)
-
+# creating plot with predicitons and seed_ctwt_subset
 ggplot(seed_ctwt_subset, aes(x = total_nr_infl , y = nr_seeds, fill = treatment)) + #might need to change fill variable
   
   geom_point(aes(color = treatment), alpha = 0.5) +
@@ -391,16 +396,16 @@ ggplot(seed_ctwt_subset, aes(x = total_nr_infl , y = nr_seeds, fill = treatment)
   facet_wrap(~species, scales = "free_y")+ 
   
   labs(fill = "treatment", color = "treatment") +
-  
+  #used function to visually see better 
   scale_y_continuous(limits = c(0, 100)) +
-  
+  #used function to visually see better 
   scale_x_continuous(limits = c(0, 65))
 ```
 
-How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
+Figure 7.
 
 # Results Problem #2
 
-so its done ?
+Im going to write it rn.
 
 # References
