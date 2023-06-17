@@ -27,7 +27,7 @@ Our null hypothesis states that there is no difference in number of seeds betwee
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
-```{r}
+```{r, include = FALSE}
 library(here)
 library(naniar)
 library(tidyverse)
@@ -259,7 +259,6 @@ colnames(seed_ctwt)
 ```
 
 ```{r}
-library(dplyr)
 seed_ctwt_subset <- dplyr::select(seed_ctwt,"treatment", "species", "total_nr_infl", "nr_seeds") %>%  
   drop_na(nr_seeds)
 ```
@@ -309,7 +308,7 @@ plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION
 
 Figure 4.
 
-### Regression \#\@
+### Regression 
 
 ```{r}
 # linear model, we know this is wrong
@@ -329,7 +328,7 @@ seedctwt3.a <- glmmTMB(nr_seeds ~ treatment + species + total_nr_infl, data = se
 MuMIn::model.sel(seed_L1,seedctwt2, seedctwt3)
 ```
 
-### Going to to use generalized Linear model with negative binomial distribution
+### Going to to use Generalized Linear Model with negative binomial distribution
 
 ```{r}
 seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_ctwt_subset)
@@ -342,12 +341,6 @@ plot(simulateResiduals(seedctwt3))
 Figure 5.
 
 ```{r}
-# model object in table
-seedctwt3 %>% 
-  as_flextable()
-```
-
-```{r}
 # when looking at the treatment shurb it was -0.34744,from summary, so it is in reference to the open plot
 ggplot()+ 
   geom_jitter(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds, color = treatment))+ 
@@ -357,12 +350,51 @@ ggplot()+
 #there was an outlier at y-axis of 180 
 ```
 
+Figure 6.
+
+```{r}
+# model object in table
+seedctwt3 %>% 
+  as_flextable()
+```
+
 ```{r}
 confint(seedctwt3)
 ```
 
 ```{r}
 r.squaredGLMM(seedctwt3)
+```
+
+```{r}
+predictions <- ggpredict(seedctwt3, terms = c("total_nr_infl","treatment", "species")) %>% 
+  
+  rename(treatment = group,
+         species = facet)
+
+ggplot(seed_ctwt_subset, aes(x = total_nr_infl , y = nr_seeds, fill = treatment)) + #might need to change fill variable
+  
+  geom_point(aes(color = treatment), alpha = 0.5) +
+  
+  facet_wrap(~species, scales = "free_y") + 
+  
+  geom_line(data = predictions, aes(x = x, y = predicted, color = treatment)) + #get error, i think it has to due with predicted 
+  
+  geom_ribbon(data = predictions, aes(x = x, y = predicted, ymin = conf.low, ymax= conf.high, fill = treatment), alpha = 0.2) + #same as above
+  
+  scale_fill_manual(values = c("shrub" = "blue", "control" = "orange"))+
+  
+  scale_color_manual(values = c("shrub" = "blue", "control" = "orange"))+
+  
+  theme_bw()+
+  
+  facet_wrap(~species, scales = "free_y")+ 
+  
+  labs(fill = "treatment", color = "treatment") +
+  
+  scale_y_continuous(limits = c(0, 100)) +
+  
+  scale_x_continuous(limits = c(0, 65))
 ```
 
 How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?
