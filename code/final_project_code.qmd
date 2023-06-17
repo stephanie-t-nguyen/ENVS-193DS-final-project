@@ -358,11 +358,12 @@ ggplot()+
   geom_jitter(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds, color = treatment))+ 
   geom_boxplot(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds))+
   ylim(0,125)+
+  labs(y = "seed count", x = "Number of inflorescences", title = "treatmentshrub plot")+
   theme_classic()
 #there was an outlier at y-axis of 180 
 ```
 
-Figure 6.
+**Figure 6.**
 
 ```{r}
 # model object in table
@@ -373,11 +374,6 @@ seedctwt3 %>%
 ```{r}
 #confidence interval
 confint(seedctwt3)
-```
-
-```{r}
-# adjusted R2
-r.squaredGLMM(seedctwt3)
 ```
 
 ```{r}
@@ -403,19 +399,25 @@ ggplot(seed_ctwt_subset, aes(x = total_nr_infl , y = nr_seeds, fill = treatment)
   
   theme_bw()+
   
+  labs(y = "seed count", x = "Number of inflorescences")+
+  
   facet_wrap(~species, scales = "free_y")+ 
   
-  labs(fill = "treatment", color = "treatment") +
+  labs(fill = "treatment", color = "treatment", title = "Seed Count by Plant Species") +
   #used function to visually see better 
   scale_y_continuous(limits = c(0, 100)) +
   #used function to visually see better 
   scale_x_continuous(limits = c(0, 65))
 ```
 
-Figure 7.
+**Figure 7.**
+
+Each plot demonstrates a plant species, with a total of six plots. The x-axis demonstrates the total number of inflorescence.The y-axis represents seed count. The yellow color represents the control/ open treatment and the blue color represents shrub treatment. Both yellow and blue shaded areas represent the confidence interval of the generalized linear model. The yellow and blue lines demonstrate trends of the predictor variables.
 
 # Results Problem #2
 
-Im going to write it rn.
+We used a generalized linear model with a negative binomial distribution to test the predictor variables: plant species, plot type and total number of inflorescences and the independent variable of seed count. The p-value for the predictor variable treatment was 0.0161 and the p-value for the total number of inflorescences was \<0.001. The Pearson correlation between seed count and total number of inflorescences was +0.95. After running a summary function, the treatmentshrub estimation was -0.347 and had a p-value of 0.0161. Figure 6 visually demonstrates the -0.347 is statistically significant, in such that shrub plots have less seed counts than open (control) plots. Lastly, figure 7 visually demonstrates how seed counts vary by each species. 
+
+Biologically, this suggests that plot types, total number of inflorescences and certain plant species demonstrates seed count vary.
 
 # References
