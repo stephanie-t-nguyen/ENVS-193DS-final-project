@@ -354,12 +354,13 @@ summary(seedctwt3)
 
 ```{r}
 # visually exploring 
-ggplot()+ 
-  geom_jitter(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds, color = treatment))+ 
-  geom_boxplot(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds))+
-  ylim(0,125)+
-  labs(y = "seed count", x = "Number of inflorescences", title = "treatmentshrub plot")+
-  theme_classic()
+ggplot() + 
+  geom_jitter(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds, color = treatment)) + 
+  geom_boxplot(data = seed_ctwt_subset, aes(x = treatment, y = nr_seeds)) +
+  ylim(0,125) +
+  labs(y = "seed count", x = "Number of inflorescences", title = "treatmentshrub plot") +
+  theme_classic() + 
+  theme(legend.position = "none")
 #there was an outlier at y-axis of 180 
 ```
 
