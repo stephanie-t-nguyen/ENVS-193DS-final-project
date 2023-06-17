@@ -15,6 +15,7 @@ execute:
 bibliography: references.bib
 ---
 
+
 # Introduction #1
 
 Kangaroo rats build mounds that create micro-environments and foster more plant diversity than adjacent grassland [@guo1996]. Even within the same mound, there are different microhabitats depending on distance away from the mound [@koontz2010]. Using data from "Effects of Kangaroo Rat Mounds," our study investigates how total seed number differs between kangaroo rat mound locations (base of the mound, surrounding areas, edge of mound, and interspace between mound and grassland) [@koontz2013].
@@ -22,6 +23,7 @@ Kangaroo rats build mounds that create micro-environments and foster more plant 
 Our null hypothesis states that there is no difference in number of seeds between the different kangaroo rat mound locations, meaning that the mounds likely do not create or foster more plant diversity. Our alternative hypothesis states that some locations of the mound support more seeds than others, meaning that the microhabitats created by the mounds likely foster more plant diversity than regular grassland soil.
 
 ### Set Up
+
 
 ```{r}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
@@ -55,6 +57,7 @@ kangaroo_rat <- here("data", "sev208_kratseedbank_20120213.txt") |> #File path
   
 ```
 
+
 # Methods #1
 
 Koontz et al. randomly chose 10 out of 25 active kangaroo rat mounds to survey. The mound soil was then divided into four groups in increasing distance from the center of the mound: base, surrounding, edge, and interspace [@koontz2010]. The soil from each location was sieved for seeds, counted, and recorded into a dataframe called kangaroo_rat [@koontz2010]. Refer to the data dictionary at the bottom of the page for explanations of column names. 
@@ -67,14 +70,17 @@ Thus, a Kruskel-Wallis test was run. The Kruskel-Wallis test is a non-parametric
 
 Afterwards, the Kruskel effect size was calculated to be 0.442 (Figure 5). This is a large magnitude, meaning that the differences in total seeds between different locations is big and distinct; there is little overlap between the data from different locations.
 
+
 ```{r}
 #Missing data check
 gg_miss_var(kangaroo_rat) #No data missing
 ```
 
+
 **Figure 1.** Visualization of Missing Data in "kangaroo_rat" Dataframe
 
 The y-axis are the variables (columns in the dataframe and the x-axis marks how many rows have missing data per variable.
+
 
 ```{r}
 kangaroo_rat_subset <- kangaroo_rat |> 
@@ -97,9 +103,11 @@ ggplot() +
   
 ```
 
+
 **Figure 2.** Exploratory Data Visualization of Seeds vs Mound Location
 
 This figure plots observations of the number of seeds found at each mound location. The locations are in order from closet to furthest from the mound, from the base of the mound to the interspace adjacent to the grassland.
+
 
 ```{r}
 #Create model to further explore relationship
@@ -110,9 +118,11 @@ par(mfrow = c(2, 2))
 plot(modelobject) #Data is not normal 
 ```
 
+
 **Figure 3.** Diagnostic Plots for Kangaroo Rat Data
 
 The Residual vs Fitted plot checks for constant variance (homoscedasticity) among the residuals. The Scale-Location plot also checks for homoscedasticity, but using the square root of the residuals; both plots show a change in pattern, where points decrease in density from bottom to top, suggesting heteroscedasticity. The Normal Q-Q plot suggests non-normality because of the deviation from the dotted line at the right tail end of the data. The Constant Leverage plot shows outliers in the data, but there do not appear to be any.
+
 
 ```{r}
 #Statistical checks
@@ -134,9 +144,11 @@ kruskal_results <- kruskal.test(total_seeds ~ loc, data = kangaroo_rat_subset) |
 kruskal_results 
 ```
 
+
 **Figure 4.** Results Kruskel Wallis Test
 
 The table shows the results of the Kruskel Wallis test. Note the p-value was changed from its actual value to a range to avoid a cutoff in numbers.
+
 
 ```{r}
 #Post-hoc tests to see how and which ranks differ
@@ -151,6 +163,7 @@ rstatix::kruskal_effsize(total_seeds ~ loc, data = kangaroo_rat_subset, conf.lev
 #Magnitude is very big, so the difference between seed number at different locations is significant and big
 ```
 
+
 **Figure 5.** Effect Size of Kruskel Wallis Test
 
 The table shows the results of calculating the effect size of the Kruskel Wallis Test.
@@ -162,6 +175,7 @@ The data was statistically and visually checked; it was non-normal, heteroscedas
 To further check the significance of the Kruskel test, the effect size was calculated to be 0.44 (Figure 5). This is a large effect size, meaning that the differences in seeds between locations is not only significant but also big in magnitude.
 
 Biologically, this suggests that microhabitats are created by kangaroo rat mounds that are different from adjacent grassland. Furthermore, even within each mound, depending on distance away from the mound, there are different and distinct microhabitats. Soil closer to the mound tend to foster more seeds by a large magnitude.
+
 
 ```{r}
 #Create summary statistics table for kangaroo_rat
@@ -189,6 +203,7 @@ ggplot(data = kangaroo_rat_summary, aes(x = loc, y = mean_1, color = loc)) +
   ylim(0, 400)
 ```
 
+
 **Figure 6.** Mound Location in Correlation with Total Number of Seeds
 
 The plot shows locations of the mound from closest to furthest from the mound, versus total number of seeds. The bigger dot represents the mean of total seeds per location and the bars represent the margin of error with a 95% confidence interval. Note that 6 data points are not shown because of y-axis limit for aesthetic reasons.
@@ -204,6 +219,7 @@ There were four datasets the study that they came from, but we only used one of 
 To get a better understanding of the dataset, we ran a series of tests and created visualizations that helped us understand the relationship between variables. As shown in figure 1, there are variables in the dataset that have missing data. However, the number of missing data is not too significant and we still have a large number of observations to work with. We still subsetted the data to drop the missing data. As shown in figure 2, we used the ggpairs function to create plots that we can use to visually assessed the relationships between variables. We found that the number of influoresences and seed count had a strong Pearson's correlation, but there seemed to be no relationship between variables based on visual assessment of the scatter plot and bar graphs. As shown in figure 3, we calculated Pearson's correlation to determine the relationships between numerical values of number of inflorescence and total seed count. We found that there was a strong correlation between number of inflorescnece and total seed count. The Pearson's correlation was a 0.93 which is a considered a strong correlation.
 
 In order for us to determine how seed count varies with plot type, plant species, and total number of inflorescences, we created three models that each had different methods for looking at how the variables effected one another in the model. As shown in figure 4, we visually assessed the normality and homoskestacitiy of residuals using a series of diagnostic plot for the models. We found that the visual assumption check of the plots show that the model do not conform to linearity or normality. Therefore, we did not use linear regression models because the models did not conform to the assumptions of linear regression. Instead, we used generalized linear models with a negative binomial distribution which is why we decided that the model seedctwt3 is the best and most simple model. This is because when we did a summary of the model we used shrub plot to compare against the control (open plot) and found that open plot had higher seed counts than shrub plot. This showed us that there was a still a pattern between these two variables. We also used the MuMin function to determine which model had the lowest AIC score. We found that model seedctwt3 had the lowest AIC score which meant it was best model to use.
+
 
 ```{r, libraries, include = FALSE}
 # model packages
@@ -231,7 +247,9 @@ library(flextable)
 library(dplyr)
 ```
 
+
 ### Code #2
+
 
 ```{r}
 #Load in Problem 2 data
@@ -252,9 +270,11 @@ community_flower <- here("data", "shrubstudy_community_flower_counts.ms.data.csv
 gg_miss_var(seed_ctwt) #Most of dist_fr_shr, wt_seeds_mg, nr_seeds missing
 ```
 
+
 **Figure 1.** Visualization of missing observations in seed dataset
 
 Variables are shown on the y-axis and the number of data missing is shown on the x-axis. The lines and dots represent how many missing observations are in each variable.
+
 
 ```{r, include = FALSE}
 colnames(seed_ctwt)
@@ -271,9 +291,11 @@ seed_ctwt_subset <- dplyr::select(seed_ctwt,"treatment", "species", "total_nr_in
 ggpairs(seed_ctwt_subset)
 ```
 
+
 **Figure 2.** Relationship between variables.
 
 Displays Pearson's correlations, bar graph, and boxplots. The asterisks indicate statistically significant relationships between variables. The bar plot at the top left shows the frequency of each treatment and the boxplot along the top line shows the quantitative variable compared with the categorical variable treatment and species.
+
 
 ```{r}
 #Calculate Pearson's r for numerical values only 
@@ -287,9 +309,11 @@ corrplot(seed_cor,
          addCoef.col = "black") #Add coefficient in black text
 ```
 
+
 **Figure 3.** Pearson's Correlation
 
 The scale on the right indicates the strength of correlation and each cell has color shading to indicate the strength of correlation. Blue represents a positive correlation and red represents a negative correlation. The diagonals represent the correlation between the same variables.
+
 
 ```{r}
 #Create a null and a full model - fit multiple linear models in order to see which one is best
@@ -307,11 +331,13 @@ par(mfrow = c(2, 2))
 plot(full) #DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION 
 ```
 
+
 **Figure 4.** Assumption checks for the full model
 
 Four plots used to determine the normality of full mode. Residual vs Fitted show residuals on y-axis and fitted values on x-axis. Used to indicate linear relationship. Normal Q-Q plot had standardized residuals on the y-axis and theoretical quantities on the x-axis. Used to determine normality of residuals. Scale-location shows the square root of standardized residuals on the y-axis and fitted values on the x-axis. Used to look at homogeneity of variance of residuals. Residuals vs leverage show standardized residuals on the y-axis, leverage on x-axis, and Cooke's distance represented by dotted lines. Used to check how influential outliers are.
 
 ### Regression
+
 
 ```{r}
 # Linear model 
@@ -331,7 +357,9 @@ seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_
 MuMIn::model.sel(seed_L1,seedctwt2, seedctwt3)
 ```
 
+
 ### Going to to use Generalized Linear Model with negative binomial distribution
+
 
 ```{r}
 # generalized linear model with negative binomial distribution
@@ -343,9 +371,11 @@ seedctwt3 <- glm.nb(nr_seeds ~ treatment + species + total_nr_infl, data = seed_
 plot(simulateResiduals(seedctwt3))
 ```
 
+
 **Figure 5.** DHARMa Residuals
 
 Displays QQ plot residuals (left) that discover deviations from the expected distribution. Residuals vs predicted shows plot of residuals against predicted value. The red line shows pattern of residuals.
+
 
 ```{r}
 #summary of GLM
@@ -362,7 +392,9 @@ ggplot()+
 #there was an outlier at y-axis of 180 
 ```
 
+
 Figure 6.
+
 
 ```{r}
 # model object in table
@@ -412,6 +444,7 @@ ggplot(seed_ctwt_subset, aes(x = total_nr_infl , y = nr_seeds, fill = treatment)
   scale_x_continuous(limits = c(0, 65))
 ```
 
+
 Figure 7.
 
 # Results Problem #2
@@ -419,3 +452,4 @@ Figure 7.
 Im going to write it rn.
 
 # References
+

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,10 +19,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,19 +48,48 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging-indent div.csl-entry {
+.hanging div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -75,7 +103,8 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}</style>
+}
+</style>
 
 
 <script src="final_project_code_files/libs/clipboard/clipboard.min.js"></script>
@@ -146,7 +175,6 @@ div.csl-indent {
       <p class="date">June 9, 2023</p>
     </div>
   </div>
-  
     
   </div>
   
@@ -160,32 +188,23 @@ div.csl-indent {
 <section id="set-up" class="level3">
 <h3 class="anchored" data-anchor-id="set-up">Set Up</h3>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effsize)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(base)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in Problem 1 data</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kangaroo_rat <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"sev208_kratseedbank_20120213.txt"</span>) <span class="sc">|&gt;</span> <span class="co">#File path</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">header=</span> <span class="cn">TRUE</span>, <span class="at">sep =</span><span class="st">","</span>, <span class="at">quote =</span> <span class="st">""</span>) <span class="sc">|&gt;</span> <span class="co">#Has header, delimiter is comma, no quoting</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">loc =</span> <span class="fu">str_replace_all</span>(loc, <span class="fu">c</span>(<span class="st">"B"</span> <span class="ot">=</span> <span class="st">"Base"</span>, <span class="co">#Replace code names with actual names</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"D"</span> <span class="ot">=</span> <span class="st">"Surrounding"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"E"</span> <span class="ot">=</span> <span class="st">"Edge"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"I"</span> <span class="ot">=</span> <span class="st">"Interspace"</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seeds =</span> <span class="fu">as.numeric</span>(seeds)) <span class="co">#Make sure data is numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in Problem 1 data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kangaroo_rat <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"sev208_kratseedbank_20120213.txt"</span>) <span class="sc">|&gt;</span> <span class="co">#File path</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">header=</span> <span class="cn">TRUE</span>, <span class="at">sep =</span><span class="st">","</span>, <span class="at">quote =</span> <span class="st">""</span>) <span class="sc">|&gt;</span> <span class="co">#Has header, delimiter is comma, no quoting</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">loc =</span> <span class="fu">str_replace_all</span>(loc, <span class="fu">c</span>(<span class="st">"B"</span> <span class="ot">=</span> <span class="st">"Base"</span>, <span class="co">#Replace code names with actual names</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"D"</span> <span class="ot">=</span> <span class="st">"Surrounding"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"E"</span> <span class="ot">=</span> <span class="st">"Edge"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"I"</span> <span class="ot">=</span> <span class="st">"Interspace"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seeds =</span> <span class="fu">as.numeric</span>(seeds)) <span class="co">#Make sure data is numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 </section>
@@ -197,8 +216,11 @@ div.csl-indent {
 <p>Thus, a Kruskel-Wallis test was run. The Kruskel-Wallis test is a non-parametric test to compare the ranks of three or more indepndent groups <span class="citation" data-cites="mckight2010">(<a href="#ref-mckight2010" role="doc-biblioref">McKight and Najab 2010</a>)</span>. It is best used for categorical predictor variables, and data sets of at least 5 per group, and our data meets all of these assumptions. The calculated p-value of the test was very small (&lt;0.0001), which means that the difference in seed count between locations is significant (Figure 4) <span class="citation" data-cites="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/kruskal.test">(<a href="#ref-https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/kruskal.test" role="doc-biblioref"><strong>https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/kruskal.test?</strong></a>)</span>.</p>
 <p>Afterwards, the Kruskel effect size was calculated to be 0.442 (Figure 5). This is a large magnitude, meaning that the differences in total seeds between different locations is big and distinct; there is little overlap between the data from different locations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Missing data check</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(kangaroo_rat) <span class="co">#No data missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Missing data check</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(kangaroo_rat) <span class="co">#No data missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="final_project_code_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -206,22 +228,28 @@ div.csl-indent {
 <p><strong>Figure 1.</strong> Visualization of Missing Data in “kangaroo_rat” Dataframe</p>
 <p>The y-axis are the variables (columns in the dataframe and the x-axis marks how many rows have missing data per variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>kangaroo_rat_subset <span class="ot">&lt;-</span> kangaroo_rat <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"soil|gravel|dist|litter|plant"</span>, species)) <span class="sc">|&gt;</span>  <span class="co">#Filter out irrevelant columns (physical descriptors)</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mnd, dir, loc) <span class="sc">|&gt;</span> <span class="co">#Group to get total seeds per mound location</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_seeds =</span> <span class="fu">sum</span>(seeds)) <span class="sc">|&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>kangaroo_rat_subset <span class="ot">&lt;-</span> kangaroo_rat <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"soil|gravel|dist|litter|plant"</span>, species)) <span class="sc">|&gt;</span>  <span class="co">#Filter out irrevelant columns (physical descriptors)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mnd, dir, loc) <span class="sc">|&gt;</span> <span class="co">#Group to get total seeds per mound location</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_seeds =</span> <span class="fu">sum</span>(seeds)) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Exploratory data visualization, looks like locations closet to mound have most seeds, but we should further explore</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">data =</span> kangaroo_rat_subset, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> total_seeds, <span class="at">color =</span> loc)) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> kangaroo_rat_subset, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> total_seeds, <span class="at">color =</span> loc), <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co">#Create jitter plot of seed count observations </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co">#Set theme</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span> <span class="co">#Omit legend</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mound Location"</span>, <span class="co">#Label axes</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Seeds"</span>) <span class="sc">+</span> </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Base"</span>, <span class="st">"Surrounding"</span>, <span class="st">"Edge"</span>, <span class="st">"Interspace"</span>)) <span class="co">#Reorder locations from closet to furthest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Exploratory data visualization, looks like locations closet to mound have most seeds, but we should further explore</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">data =</span> kangaroo_rat_subset, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> total_seeds, <span class="at">color =</span> loc)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> kangaroo_rat_subset, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> total_seeds, <span class="at">color =</span> loc), <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> <span class="co">#Create jitter plot of seed count observations </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co">#Set theme</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span> <span class="co">#Omit legend</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mound Location"</span>, <span class="co">#Label axes</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Seeds"</span>) <span class="sc">+</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Base"</span>, <span class="st">"Surrounding"</span>, <span class="st">"Edge"</span>, <span class="st">"Interspace"</span>)) <span class="co">#Reorder locations from closet to furthest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="final_project_code_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -229,12 +257,15 @@ div.csl-indent {
 <p><strong>Figure 2.</strong> Exploratory Data Visualization of Seeds vs Mound Location</p>
 <p>This figure plots observations of the number of seeds found at each mound location. The locations are in order from closet to furthest from the mound, from the base of the mound to the interspace adjacent to the grassland.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create model to further explore relationship</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>modelobject <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat_subset)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualize models - diagnostic plots in a grid </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelobject) <span class="co">#Data is not normal </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create model to further explore relationship</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>modelobject <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat_subset)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualize models - diagnostic plots in a grid </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelobject) <span class="co">#Data is not normal </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="final_project_code_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -242,49 +273,64 @@ div.csl-indent {
 <p><strong>Figure 3.</strong> Diagnostic Plots for Kangaroo Rat Data</p>
 <p>The Residual vs Fitted plot checks for constant variance (homoscedasticity) among the residuals. The Scale-Location plot also checks for homoscedasticity, but using the square root of the residuals; both plots show a change in pattern, where points decrease in density from bottom to top, suggesting heteroscedasticity. The Normal Q-Q plot suggests non-normality because of the deviation from the dotted line at the right tail end of the data. The Constant Leverage plot shows outliers in the data, but there do not appear to be any.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Statistical checks</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>kr_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat_subset)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_normality</span>(kr_model) <span class="co">#The data is not normal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Statistical checks</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>kr_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat_subset)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_normality</span>(kr_model) <span class="co">#The data is not normal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Non-normality of residuals detected (p &lt; .001).</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_heteroscedasticity</span>(kr_model) <span class="co">#The data is heteroscedastic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_heteroscedasticity</span>(kr_model) <span class="co">#The data is heteroscedastic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Run Kruskel Test</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>kruskal_results <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(total_seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat_subset) <span class="sc">|&gt;</span> <span class="co">#Run test</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span> <span class="co">#Make into dataframe</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">case_when</span>(p.value <span class="sc">&lt;</span> <span class="fl">0.0001</span> <span class="sc">~</span> <span class="st">"&lt;0.0001"</span>)) <span class="sc">|&gt;</span> <span class="co">#Replace p-value</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span> <span class="co">#Make into a flextable</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_header_labels</span>(<span class="at">statistic =</span> <span class="st">"Statistic"</span>, <span class="co">#Change header labels to be meaningful </span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">p.value =</span> <span class="st">"p-value"</span>, </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">parameter =</span> <span class="st">"Parameter"</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"Method"</span>)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>kruskal_results </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Run Kruskel Test</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>kruskal_results <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(total_seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat_subset) <span class="sc">|&gt;</span> <span class="co">#Run test</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span> <span class="co">#Make into dataframe</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">case_when</span>(p.value <span class="sc">&lt;</span> <span class="fl">0.0001</span> <span class="sc">~</span> <span class="st">"&lt;0.0001"</span>)) <span class="sc">|&gt;</span> <span class="co">#Replace p-value</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span> <span class="co">#Make into a flextable</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_header_labels</span>(<span class="at">statistic =</span> <span class="st">"Statistic"</span>, <span class="co">#Change header labels to be meaningful </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">p.value =</span> <span class="st">"p-value"</span>, </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">parameter =</span> <span class="st">"Parameter"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"Method"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>kruskal_results </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-5ec8c426{}.cl-5ec554c6{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5ec6cae0{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5ec6caea{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5ec6d602{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5ec6d60c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5ec6d60d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5ec6d60e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-5ec8c426"><thead><tr style="overflow-wrap:break-word;"><th class="cl-5ec6d602"><p class="cl-5ec6cae0"><span class="cl-5ec554c6">Statistic</span></p></th><th class="cl-5ec6d60c"><p class="cl-5ec6caea"><span class="cl-5ec554c6">p-value</span></p></th><th class="cl-5ec6d602"><p class="cl-5ec6cae0"><span class="cl-5ec554c6">Parameter</span></p></th><th class="cl-5ec6d60c"><p class="cl-5ec6caea"><span class="cl-5ec554c6">Method</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-5ec6d60d"><p class="cl-5ec6cae0"><span class="cl-5ec554c6">54.26941</span></p></td><td class="cl-5ec6d60e"><p class="cl-5ec6caea"><span class="cl-5ec554c6">&lt;0.0001</span></p></td><td class="cl-5ec6d60d"><p class="cl-5ec6cae0"><span class="cl-5ec554c6">3</span></p></td><td class="cl-5ec6d60e"><p class="cl-5ec6caea"><span class="cl-5ec554c6">Kruskal-Wallis rank sum test</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-8469d1de{}.cl-845fc72a{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-84649cc8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-84649cd2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8464b53c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8464b546{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8464b547{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8464b550{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8469d1de"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8464b53c"><p class="cl-84649cc8"><span class="cl-845fc72a">Statistic</span></p></th><th class="cl-8464b546"><p class="cl-84649cd2"><span class="cl-845fc72a">p-value</span></p></th><th class="cl-8464b53c"><p class="cl-84649cc8"><span class="cl-845fc72a">Parameter</span></p></th><th class="cl-8464b546"><p class="cl-84649cd2"><span class="cl-845fc72a">Method</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8464b547"><p class="cl-84649cc8"><span class="cl-845fc72a">54.26941</span></p></td><td class="cl-8464b550"><p class="cl-84649cd2"><span class="cl-845fc72a">&lt;0.0001</span></p></td><td class="cl-8464b547"><p class="cl-84649cc8"><span class="cl-845fc72a">3</span></p></td><td class="cl-8464b550"><p class="cl-84649cd2"><span class="cl-845fc72a">Kruskal-Wallis rank sum test</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <p><strong>Figure 4.</strong> Results Kruskel Wallis Test</p>
 <p>The table shows the results of the Kruskel Wallis test. Note the p-value was changed from its actual value to a range to avoid a cutoff in numbers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Post-hoc tests to see how and which ranks differ</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">kruskal_effsize</span>(total_seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat_subset, <span class="at">conf.level =</span> <span class="fl">0.95</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span> <span class="co">#Make data frame into a flex table object</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_header_labels</span>(<span class="at">.y. =</span> <span class="st">"Dependent Variable"</span>, <span class="co">#Change header labels to be meaningful </span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n =</span> <span class="st">"Number of Observations"</span>, </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">effsize =</span> <span class="st">"Effect Size"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"Method"</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">magnitude =</span> <span class="st">"Magnitude"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Post-hoc tests to see how and which ranks differ</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">kruskal_effsize</span>(total_seeds <span class="sc">~</span> loc, <span class="at">data =</span> kangaroo_rat_subset, <span class="at">conf.level =</span> <span class="fl">0.95</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span> <span class="co">#Make data frame into a flex table object</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_header_labels</span>(<span class="at">.y. =</span> <span class="st">"Dependent Variable"</span>, <span class="co">#Change header labels to be meaningful </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n =</span> <span class="st">"Number of Observations"</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">effsize =</span> <span class="st">"Effect Size"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"Method"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">magnitude =</span> <span class="st">"Magnitude"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-5ed4b92a{}.cl-5ed15866{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5ed32484{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5ed3248e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5ed32bdc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5ed32bdd{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5ed32bde{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5ed32bdf{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-5ed4b92a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-5ed32bdc"><p class="cl-5ed32484"><span class="cl-5ed15866">Dependent Variable</span></p></th><th class="cl-5ed32bdd"><p class="cl-5ed3248e"><span class="cl-5ed15866">Number of Observations</span></p></th><th class="cl-5ed32bdd"><p class="cl-5ed3248e"><span class="cl-5ed15866">Effect Size</span></p></th><th class="cl-5ed32bdc"><p class="cl-5ed32484"><span class="cl-5ed15866">Method</span></p></th><th class="cl-5ed32bdc"><p class="cl-5ed32484"><span class="cl-5ed15866">Magnitude</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-5ed32bde"><p class="cl-5ed32484"><span class="cl-5ed15866">total_seeds</span></p></td><td class="cl-5ed32bdf"><p class="cl-5ed3248e"><span class="cl-5ed15866">120</span></p></td><td class="cl-5ed32bdf"><p class="cl-5ed3248e"><span class="cl-5ed15866">0.4419777</span></p></td><td class="cl-5ed32bde"><p class="cl-5ed32484"><span class="cl-5ed15866">eta2[H]</span></p></td><td class="cl-5ed32bde"><p class="cl-5ed32484"><span class="cl-5ed15866">large</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-848e202a{}.cl-84813e1e{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-84846120{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-84846134{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-84847552{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8484755c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8484755d{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-84847570{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-848e202a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-84847552"><p class="cl-84846120"><span class="cl-84813e1e">Dependent Variable</span></p></th><th class="cl-8484755c"><p class="cl-84846134"><span class="cl-84813e1e">Number of Observations</span></p></th><th class="cl-8484755c"><p class="cl-84846134"><span class="cl-84813e1e">Effect Size</span></p></th><th class="cl-84847552"><p class="cl-84846120"><span class="cl-84813e1e">Method</span></p></th><th class="cl-84847552"><p class="cl-84846120"><span class="cl-84813e1e">Magnitude</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8484755d"><p class="cl-84846120"><span class="cl-84813e1e">total_seeds</span></p></td><td class="cl-84847570"><p class="cl-84846134"><span class="cl-84813e1e">120</span></p></td><td class="cl-84847570"><p class="cl-84846134"><span class="cl-84813e1e">0.4419777</span></p></td><td class="cl-8484755d"><p class="cl-84846120"><span class="cl-84813e1e">eta2[H]</span></p></td><td class="cl-8484755d"><p class="cl-84846120"><span class="cl-84813e1e">large</span></p></td></tr></tbody></table></div>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Magnitude is very big, so the difference between seed number at different locations is significant and big</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Magnitude is very big, so the difference between seed number at different locations is significant and big</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p><strong>Figure 5.</strong> Effect Size of Kruskel Wallis Test</p>
 <p>The table shows the results of calculating the effect size of the Kruskel Wallis Test.</p>
@@ -295,29 +341,32 @@ div.csl-indent {
 <p>To further check the significance of the Kruskel test, the effect size was calculated to be 0.44 (Figure 5). This is a large effect size, meaning that the differences in seeds between locations is not only significant but also big in magnitude.</p>
 <p>Biologically, this suggests that microhabitats are created by kangaroo rat mounds that are different from adjacent grassland. Furthermore, even within each mound, depending on distance away from the mound, there are different and distinct microhabitats. Soil closer to the mound tend to foster more seeds by a large magnitude.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create summary statistics table for kangaroo_rat</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>kangaroo_rat_summary <span class="ot">&lt;-</span> kangaroo_rat_subset <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(loc) <span class="sc">|&gt;</span> <span class="co">#Group by location </span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_1 =</span> <span class="fu">mean</span>(total_seeds), <span class="co">#Summarize mean, sd, var, and margin of error</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_1 =</span> <span class="fu">sd</span>(total_seeds),</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_1  =</span> <span class="fu">var</span>(total_seeds),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">count_1  =</span> <span class="fu">length</span>(total_seeds),</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">se_1 =</span> sd_1<span class="sc">/</span><span class="fu">sqrt</span>(count_1),</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">margin_1 =</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> count_1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se_1)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Create ggplot of main results</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> kangaroo_rat_summary, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> mean_1, <span class="at">color =</span> loc)) <span class="sc">+</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_1 <span class="sc">-</span> margin_1, <span class="at">ymax =</span> mean_1 <span class="sc">+</span> margin_1),</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> kangaroo_rat_subset, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> total_seeds), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mound Location"</span>, <span class="at">y =</span> <span class="st">"Total Number of Seeds"</span>) <span class="sc">+</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Base"</span>, <span class="st">"Surrounding"</span>, <span class="st">"Edge"</span>, <span class="st">"Interspace"</span>)) <span class="sc">+</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">400</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create summary statistics table for kangaroo_rat</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>kangaroo_rat_summary <span class="ot">&lt;-</span> kangaroo_rat_subset <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(loc) <span class="sc">|&gt;</span> <span class="co">#Group by location </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_1 =</span> <span class="fu">mean</span>(total_seeds), <span class="co">#Summarize mean, sd, var, and margin of error</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_1 =</span> <span class="fu">sd</span>(total_seeds),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_1  =</span> <span class="fu">var</span>(total_seeds),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">count_1  =</span> <span class="fu">length</span>(total_seeds),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">se_1 =</span> sd_1<span class="sc">/</span><span class="fu">sqrt</span>(count_1),</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">margin_1 =</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> count_1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se_1)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Create ggplot of main results</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> kangaroo_rat_summary, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> mean_1, <span class="at">color =</span> loc)) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_1 <span class="sc">-</span> margin_1, <span class="at">ymax =</span> mean_1 <span class="sc">+</span> margin_1),</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> kangaroo_rat_subset, <span class="fu">aes</span>(<span class="at">x =</span> loc, <span class="at">y =</span> total_seeds), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mound Location"</span>, <span class="at">y =</span> <span class="st">"Total Number of Seeds"</span>) <span class="sc">+</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Base"</span>, <span class="st">"Surrounding"</span>, <span class="st">"Edge"</span>, <span class="st">"Interspace"</span>)) <span class="sc">+</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">400</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="final_project_code_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -327,113 +376,130 @@ div.csl-indent {
 </section>
 <section id="introduction-problem-2" class="level1">
 <h1>Introduction Problem #2</h1>
-<p>The Niwot Ridge is an alpine ecosystem that consists of cold, snowy, and windy climates and low temperatures during the growing season (Edwards et al., 2007). Despite these conditions, many plants have adapted to this environment.&nbsp; Learning more about these plants can better inform us of plants that live in their climate limits (Germino, 2014). Seed count is the number of seeds produced by a plant that is commonly used to determine the plant’s fitness (Wen and Simmons, 2020). Plants have numerous biological and physical factors that can contribute to their seed count. Using data from “Individual and community flowering phenology, seed counts and pollinator visitation rates in shrub and open plots across Niwot Ridge, 2019 - 2021”, we will investigate how the seed count of plants in the Niwot Ridge varies with total number of inflorescences, plant species, and plot type. We hypothesize that plant species and number of inflorescences will be the biggest factors in determining seed count.</p>
+<p>The Niwot Ridge is an alpine ecosystem that consists of cold, snowy, and windy climates and low temperatures during the growing season <span class="citation" data-cites="edwards2007">(<a href="#ref-edwards2007" role="doc-biblioref">Edwards, Scalenghe, and Freppaz 2007</a>)</span>. Despite these conditions, many plants have adapted to this environment.&nbsp;Learning more about these plants can better inform us of plants that live in their climate limits <span class="citation" data-cites="germino2014">(<a href="#ref-germino2014" role="doc-biblioref">Germino 2014</a>)</span>. Seed count is the number of seeds produced by a plant that is commonly used to determine the plant’s fitness <span class="citation" data-cites="wen2020">(<a href="#ref-wen2020" role="doc-biblioref">Wen and Simons 2020</a>)</span>. Plants have numerous biological and physical factors that can contribute to their seed count. Using data from “Individual and community flowering phenology, seed counts and pollinator visitation rates in shrub and open plots across Niwot Ridge, 2019 - 2021”, we will investigate how the seed count of plants in the Niwot Ridge varies with total number of inflorescences, plant species, and plot type <span class="citation" data-cites="seaver2022a">(<a href="#ref-seaver2022a" role="doc-biblioref">Seaver 2022a</a>)</span>. We hypothesize that plant species and number of inflorescences will be the biggest factors in determining seed count.</p>
 </section>
 <section id="methods-problem-2" class="level1">
 <h1>Methods Problem #2</h1>
-<p>There were four datasets the study that they came from, but we only used one of them called seed count weight. We did this because seed count weight contained all of the variables that we were using to compare seed count such as total number of inflorescence, plant species, and plot type. Seaver counted the number of seeds by breaking up dried buds with her fingers and counting all the viable seeds. A seed was “viable” if it had a plump look and feel compared to an aborted seed that was clearly shriveled and small. The seeds were collected from five different species: Geuros, Kobmyo, Carrup, Arefen, and Minobt. Viable seeds were recorded and put into envelopes that had their respective species, plot number, and number of inflorescences collected <span class="citation" data-cites="seaver2022">(<a href="#ref-seaver2022" role="doc-biblioref">Seaver 2022</a>)</span>.</p>
+<p>There were four datasets the study that they came from, but we only used one of them called seed count weight. We did this because seed count weight contained all of the variables that we were using to compare seed count such as total number of inflorescence, plant species, and plot type. Seaver counted the number of seeds by breaking up dried buds with her fingers and counting all the viable seeds. A seed was “viable” if it had a plump look and feel compared to an aborted seed that was clearly shriveled and small. The seeds were collected from five different species: Geuros, Kobmyo, Carrup, Arefen, and Minobt. Viable seeds were recorded and put into envelopes that had their respective species, plot number, and number of inflorescences collected <span class="citation" data-cites="seaver2022">(<a href="#ref-seaver2022" role="doc-biblioref">Seaver 2022b</a>)</span>.</p>
 <p>To get a better understanding of the dataset, we ran a series of tests and created visualizations that helped us understand the relationship between variables. As shown in figure 1, there are variables in the dataset that have missing data. However, the number of missing data is not too significant and we still have a large number of observations to work with. We still subsetted the data to drop the missing data. As shown in figure 2, we used the ggpairs function to create plots that we can use to visually assessed the relationships between variables. We found that the number of influoresences and seed count had a strong Pearson’s correlation, but there seemed to be no relationship between variables based on visual assessment of the scatter plot and bar graphs. As shown in figure 3, we calculated Pearson’s correlation to determine the relationships between numerical values of number of inflorescence and total seed count. We found that there was a strong correlation between number of inflorescnece and total seed count. The Pearson’s correlation was a 0.93 which is a considered a strong correlation.</p>
 <p>In order for us to determine how seed count varies with plot type, plant species, and total number of inflorescences, we created three models that each had different methods for looking at how the variables effected one another in the model. As shown in figure 4, we visually assessed the normality and homoskestacitiy of residuals using a series of diagnostic plot for the models. We found that the visual assumption check of the plots show that the model do not conform to linearity or normality. Therefore, we did not use linear regression models because the models did not conform to the assumptions of linear regression. Instead, we used generalized linear models with a negative binomial distribution which is why we decided that the model seedctwt3 is the best and most simple model. This is because when we did a summary of the model we used shrub plot to compare against the control (open plot) and found that open plot had higher seed counts than shrub plot. This showed us that there was a still a pattern between these two variables. We also used the MuMin function to determine which model had the lowest AIC score. We found that model seedctwt3 had the lowest AIC score which meant it was best model to use.</p>
 <section id="code-2" class="level3">
 <h3 class="anchored" data-anchor-id="code-2">Code #2</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in Problem 2 data</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pollinator <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_pollinator.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>seed_ctwt <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_seed_ctwt.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>individual_flower <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_individual_flower_counts.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>community_flower <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_community_flower_counts.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in Problem 2 data</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pollinator <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_pollinator.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>seed_ctwt <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_seed_ctwt.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>individual_flower <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_individual_flower_counts.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>community_flower <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"shrubstudy_community_flower_counts.ms.data.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(seed_ctwt) <span class="co">#Most of dist_fr_shr, wt_seeds_mg, nr_seeds missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gg_miss_var</span>(seed_ctwt) <span class="co">#Most of dist_fr_shr, wt_seeds_mg, nr_seeds missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="final_project_code_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Figure 1.</p>
+<p><strong>Figure 1.</strong> Visualization of missing observations in seed dataset</p>
+<p>Variables are shown on the y-axis and the number of data missing is shown on the x-axis. The lines and dots represent how many missing observations are in each variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(seed_ctwt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "date_collected" "shrub_num"      "aspect"         "tag_num"       
- [5] "treatment"      "species"        "plant_nr"       "dist_fr_shr"   
- [9] "total_nr_infl"  "nr_infl_coll"   "nr_seeds"       "wt_seeds_mg"   
-[13] "notes"         </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>seed_ctwt_subset <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(seed_ctwt,<span class="st">"treatment"</span>, <span class="st">"species"</span>, <span class="st">"total_nr_infl"</span>, <span class="st">"nr_seeds"</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(nr_seeds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#selecting certain columns to answer question</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>seed_ctwt_subset <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(seed_ctwt,<span class="st">"treatment"</span>, <span class="st">"species"</span>, <span class="st">"total_nr_infl"</span>, <span class="st">"nr_seeds"</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(nr_seeds) <span class="co">#dropping Na values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#seed_ctwt_subset &lt;- seed_ctwt |&gt; </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#select(c("treatment", "species", "total_nr_infl", "nr_seeds")) |&gt; #Plot type, plant species, total number of inflorescences - select relevant columns </span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#drop_na(nr_seeds) #Thats a lot of data missing... should we do anything? </span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Not quite sure what the total number of inflorescences vs inflorescence collected means</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ggapairs plot for predictor variables</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(seed_ctwt_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+<p><strong>Figure 2.</strong> Relationship between variables.</p>
+<p>Displays Pearson’s correlations, bar graph, and boxplots. The asterisks indicate statistically significant relationships between variables. The bar plot at the top left shows the frequency of each treatment and the boxplot along the top line shows the quantitative variable compared with the categorical variable treatment and species.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ggapairs plot for predictor variables</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(seed_ctwt_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Pearson's r for numerical values only </span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>seed_cor <span class="ot">&lt;-</span> seed_ctwt_subset <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(total_nr_infl<span class="sc">:</span>nr_seeds) <span class="sc">|&gt;</span> <span class="co">#Not sure if this is correct</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Create correlation plot</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(seed_cor, </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"ellipse"</span>, <span class="co">#Change shape of item in cells</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">"black"</span>) <span class="co">#Add coefficient in black text</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="final_project_code_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Figure 2.</p>
+<p><strong>Figure 3.</strong> Pearson’s Correlation</p>
+<p>The scale on the right indicates the strength of correlation and each cell has color shading to indicate the strength of correlation. Blue represents a positive correlation and red represents a negative correlation. The diagonals represent the correlation between the same variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Pearson's r for numerical values only </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>seed_cor <span class="ot">&lt;-</span> seed_ctwt_subset <span class="sc">|&gt;</span> </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(total_nr_infl<span class="sc">:</span>nr_seeds) <span class="sc">|&gt;</span> <span class="co">#Not sure if this is correct</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Create correlation plot</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(seed_cor, </span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"ellipse"</span>, <span class="co">#Change shape of item in cells</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">"black"</span>) <span class="co">#Add coefficient in black text</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a null and a full model - fit multiple linear models in order to see which one is best</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>null <span class="ot">&lt;-</span> <span class="fu">lm</span>(nr_seeds <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> seed_ctwt_subset)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Assume no relationship between total mass and predictor variables </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#1 indicates absence of all other predictors </span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>full <span class="ot">&lt;-</span> <span class="fu">lm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Assume predictor variables can predict biomass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Exploratory data visualization</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(full) <span class="co">#DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
-<p><img src="final_project_code_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Figure 3.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a null and a full model - fit multiple linear models in order to see which one is best</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>null <span class="ot">&lt;-</span> <span class="fu">lm</span>(nr_seeds <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> seed_ctwt_subset)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Assume no relationship between total mass and predictor variables </span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#1 indicates absence of all other predictors </span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>full <span class="ot">&lt;-</span> <span class="fu">lm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Assume predictor variables can predict biomass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(full) <span class="co">#DATA IS NOT NORMAL CANNOT DO MULTIPLE LINEAR REGRESSION </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="final_project_code_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Figure 4.</p>
+<p><strong>Figure 4.</strong> Assumption checks for the full model</p>
+<p>Four plots used to determine the normality of full mode. Residual vs Fitted show residuals on y-axis and fitted values on x-axis. Used to indicate linear relationship. Normal Q-Q plot had standardized residuals on the y-axis and theoretical quantities on the x-axis. Used to determine normality of residuals. Scale-location shows the square root of standardized residuals on the y-axis and fitted values on the x-axis. Used to look at homogeneity of variance of residuals. Residuals vs leverage show standardized residuals on the y-axis, leverage on x-axis, and Cooke’s distance represented by dotted lines. Used to check how influential outliers are.</p>
 </section>
 <section id="regression" class="level3">
 <h3 class="anchored" data-anchor-id="regression">Regression</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># linear model, we know this is wrong</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>seed_L1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># generalized linear model with Poisson distribution</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>seedctwt2 <span class="ot">&lt;-</span><span class="fu">glm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset, <span class="at">family =</span> <span class="st">"poisson"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>seedctwt2.a <span class="ot">&lt;-</span> <span class="fu">glm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset, <span class="at">family =</span> <span class="st">"poisson"</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># generalized linear model with negative binomial distribution</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>seedctwt3 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>seedctwt3.a <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset, <span class="at">family =</span> <span class="st">"nbinom2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear model </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>seed_L1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># generalized linear model with Poisson distribution</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>seedctwt2 <span class="ot">&lt;-</span><span class="fu">glm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset, <span class="at">family =</span> <span class="st">"poisson"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>seedctwt2.a <span class="ot">&lt;-</span> <span class="fu">glm</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset, <span class="at">family =</span> <span class="st">"poisson"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># generalized linear model with negative binomial distribution</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>seedctwt3 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">model.sel</span>(seed_L1,seedctwt2, seedctwt3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#using function model.sel , to decide what distribution to use</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">model.sel</span>(seed_L1,seedctwt2, seedctwt3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Model selection table 
            (Int) spc ttl_nr_inf trt       family  class init.theta link df
@@ -454,38 +520,104 @@ Models ranked by AICc(x) </code></pre>
 <section id="going-to-to-use-generalized-linear-model-with-negative-binomial-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="going-to-to-use-generalized-linear-model-with-negative-binomial-distribution">Going to to use Generalized Linear Model with negative binomial distribution</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>seedctwt3 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generalized linear model with negative binomial distribution</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>seedctwt3 <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(nr_seeds <span class="sc">~</span> treatment <span class="sc">+</span> species <span class="sc">+</span> total_nr_infl, <span class="at">data =</span> seed_ctwt_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(seedctwt3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visual of a generalized linear model with negative binomial distribution</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(seedctwt3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
-<p><img src="final_project_code_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Figure 5.</p>
+<p><strong>Figure 5.</strong> DHARMa Residuals</p>
+<p>Displays QQ plot residuals (left) that discover deviations from the expected distribution. Residuals vs predicted shows plot of residuals against predicted value. The red line shows pattern of residuals.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#summary of GLM</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(seedctwt3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm.nb(formula = nr_seeds ~ treatment + species + total_nr_infl, 
+    data = seed_ctwt_subset, init.theta = 1.504930235, link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.4884  -0.9516  -0.2062   0.3100   2.7942  
+
+Coefficients:
+               Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)     1.91762    0.22214   8.633  &lt; 2e-16 ***
+treatmentshrub -0.34744    0.14433  -2.407   0.0161 *  
+speciesCARRUP  -1.56758    0.29371  -5.337 9.44e-08 ***
+speciesGEUROS  -0.17847    0.25235  -0.707   0.4794    
+speciesKOBMYO   0.19845    0.22373   0.887   0.3751    
+speciesMINOBT  -0.36228    0.23755  -1.525   0.1272    
+speciesTRIDAS   1.74077    0.85712   2.031   0.0423 *  
+total_nr_infl   0.07499    0.00559  13.416  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(1.5049) family taken to be 1)
+
+    Null deviance: 543.44  on 181  degrees of freedom
+Residual deviance: 213.68  on 174  degrees of freedom
+AIC: 1130.9
+
+Number of Fisher Scoring iterations: 1
+
+              Theta:  1.505 
+          Std. Err.:  0.212 
+
+ 2 x log-likelihood:  -1112.910 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visually exploring </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> seed_ctwt_subset, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> nr_seeds, <span class="at">color =</span> treatment))<span class="sc">+</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">data =</span> seed_ctwt_subset, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> nr_seeds))<span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">125</span>)<span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="final_project_code_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#there was an outlier at y-axis of 180 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Figure 6.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model object in table</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>seedctwt3 <span class="sc">%&gt;%</span> </span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-615b36a6{}.cl-61581d5e{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-61581d68{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-61596240{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6159624a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-61596a60{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a6a{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a6b{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a74{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a75{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a76{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a77{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a7e{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a7f{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a80{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a81{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a88{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a92{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a93{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a94{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a95{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a9c{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a9d{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a9e{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596a9f{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596aa6{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596aa7{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596aa8{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ab0{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ab1{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ab2{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596aba{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596abb{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ac4{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ac5{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ace{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596acf{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ad0{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ad1{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ad8{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ad9{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ada{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ae2{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596ae3{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596aec{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596aed{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-61596aee{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-615b36a6"><thead><tr style="overflow-wrap:break-word;"><th class="cl-61596a60"><p class="cl-61596240"><span class="cl-61581d5e"></span></p></th><th class="cl-61596a6a"><p class="cl-6159624a"><span class="cl-61581d5e">Estimate</span></p></th><th class="cl-61596a6b"><p class="cl-6159624a"><span class="cl-61581d5e">Standard Error</span></p></th><th class="cl-61596a74"><p class="cl-6159624a"><span class="cl-61581d5e">z value</span></p></th><th class="cl-61596a75"><p class="cl-6159624a"><span class="cl-61581d5e">Pr(&gt;|z|)</span></p></th><th class="cl-61596a76"><p class="cl-61596240"><span class="cl-61581d5e"></span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-61596a77"><p class="cl-61596240"><span class="cl-61581d5e">(Intercept)</span></p></td><td class="cl-61596a7e"><p class="cl-6159624a"><span class="cl-61581d5e">1.918</span></p></td><td class="cl-61596a7f"><p class="cl-6159624a"><span class="cl-61581d5e">0.222</span></p></td><td class="cl-61596a80"><p class="cl-6159624a"><span class="cl-61581d5e">8.633</span></p></td><td class="cl-61596a81"><p class="cl-6159624a"><span class="cl-61581d5e">0.0000</span></p></td><td class="cl-61596a88"><p class="cl-61596240"><span class="cl-61581d5e">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-61596a92"><p class="cl-61596240"><span class="cl-61581d5e">treatmentshrub</span></p></td><td class="cl-61596a93"><p class="cl-6159624a"><span class="cl-61581d5e">-0.347</span></p></td><td class="cl-61596a94"><p class="cl-6159624a"><span class="cl-61581d5e">0.144</span></p></td><td class="cl-61596a95"><p class="cl-6159624a"><span class="cl-61581d5e">-2.407</span></p></td><td class="cl-61596a9c"><p class="cl-6159624a"><span class="cl-61581d5e">0.0161</span></p></td><td class="cl-61596a9d"><p class="cl-61596240"><span class="cl-61581d5e">  *</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-61596a9e"><p class="cl-61596240"><span class="cl-61581d5e">speciesCARRUP</span></p></td><td class="cl-61596a9f"><p class="cl-6159624a"><span class="cl-61581d5e">-1.568</span></p></td><td class="cl-61596aa6"><p class="cl-6159624a"><span class="cl-61581d5e">0.294</span></p></td><td class="cl-61596aa7"><p class="cl-6159624a"><span class="cl-61581d5e">-5.337</span></p></td><td class="cl-61596aa8"><p class="cl-6159624a"><span class="cl-61581d5e">0.0000</span></p></td><td class="cl-61596ab0"><p class="cl-61596240"><span class="cl-61581d5e">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-61596a9e"><p class="cl-61596240"><span class="cl-61581d5e">speciesGEUROS</span></p></td><td class="cl-61596a9f"><p class="cl-6159624a"><span class="cl-61581d5e">-0.178</span></p></td><td class="cl-61596aa6"><p class="cl-6159624a"><span class="cl-61581d5e">0.252</span></p></td><td class="cl-61596aa7"><p class="cl-6159624a"><span class="cl-61581d5e">-0.707</span></p></td><td class="cl-61596aa8"><p class="cl-6159624a"><span class="cl-61581d5e">0.4794</span></p></td><td class="cl-61596ab0"><p class="cl-61596240"><span class="cl-61581d5e">   </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-61596a9e"><p class="cl-61596240"><span class="cl-61581d5e">speciesKOBMYO</span></p></td><td class="cl-61596a9f"><p class="cl-6159624a"><span class="cl-61581d5e">0.198</span></p></td><td class="cl-61596aa6"><p class="cl-6159624a"><span class="cl-61581d5e">0.224</span></p></td><td class="cl-61596aa7"><p class="cl-6159624a"><span class="cl-61581d5e">0.887</span></p></td><td class="cl-61596aa8"><p class="cl-6159624a"><span class="cl-61581d5e">0.3751</span></p></td><td class="cl-61596ab0"><p class="cl-61596240"><span class="cl-61581d5e">   </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-61596a9e"><p class="cl-61596240"><span class="cl-61581d5e">speciesMINOBT</span></p></td><td class="cl-61596a9f"><p class="cl-6159624a"><span class="cl-61581d5e">-0.362</span></p></td><td class="cl-61596aa6"><p class="cl-6159624a"><span class="cl-61581d5e">0.238</span></p></td><td class="cl-61596aa7"><p class="cl-6159624a"><span class="cl-61581d5e">-1.525</span></p></td><td class="cl-61596aa8"><p class="cl-6159624a"><span class="cl-61581d5e">0.1272</span></p></td><td class="cl-61596ab0"><p class="cl-61596240"><span class="cl-61581d5e">   </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-61596a9e"><p class="cl-61596240"><span class="cl-61581d5e">speciesTRIDAS</span></p></td><td class="cl-61596a9f"><p class="cl-6159624a"><span class="cl-61581d5e">1.741</span></p></td><td class="cl-61596aa6"><p class="cl-6159624a"><span class="cl-61581d5e">0.857</span></p></td><td class="cl-61596aa7"><p class="cl-6159624a"><span class="cl-61581d5e">2.031</span></p></td><td class="cl-61596aa8"><p class="cl-6159624a"><span class="cl-61581d5e">0.0423</span></p></td><td class="cl-61596ab0"><p class="cl-61596240"><span class="cl-61581d5e">  *</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-61596ab1"><p class="cl-61596240"><span class="cl-61581d5e">total_nr_infl</span></p></td><td class="cl-61596ab2"><p class="cl-6159624a"><span class="cl-61581d5e">0.075</span></p></td><td class="cl-61596aba"><p class="cl-6159624a"><span class="cl-61581d5e">0.006</span></p></td><td class="cl-61596abb"><p class="cl-6159624a"><span class="cl-61581d5e">13.416</span></p></td><td class="cl-61596ac4"><p class="cl-6159624a"><span class="cl-61581d5e">0.0000</span></p></td><td class="cl-61596ac5"><p class="cl-61596240"><span class="cl-61581d5e">***</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-61596ace"><p class="cl-6159624a"><span class="cl-61581d68">Signif. codes: 0 &lt;= '***' &lt; 0.001 &lt; '**' &lt; 0.01 &lt; '*' &lt; 0.05</span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-61596ada"><p class="cl-61596240"><span class="cl-61581d5e"> </span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-61596ada"><p class="cl-61596240"><span class="cl-61581d5e">(Dispersion parameter for Negative Binomial(1.5049) family taken to be 1)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-61596ada"><p class="cl-61596240"><span class="cl-61581d5e">Null deviance: 543.4 on 181 degrees of freedom</span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-61596ada"><p class="cl-61596240"><span class="cl-61581d5e">Residual deviance: 213.7 on 174 degrees of freedom</span></p></td></tr></tfoot></table></div>
+<div class="tabwid"><style>.cl-8aa80a3e{}.cl-8a9f8238{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8a9f8242{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8aa2fac6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8aa2fada{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8aa30f8e{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30f98{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30f99{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fa2{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fac{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fb6{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fc0{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fca{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fcb{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fd4{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fd5{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fde{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30fe8{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30ff2{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30ff3{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa30ffc{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31006{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31007{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa3101a{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31024{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31025{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa3102e{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31038{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31042{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa3104c{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa3104d{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31056{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31060{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa3106a{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31074{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31075{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa3107e{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31088{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31092{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa31093{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa3109c{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa310a6{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa310b0{width:0.88in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa310b1{width:1.287in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa310ba{width:0.769in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa310c4{width:0.785in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8aa310ce{width:0.4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8aa80a3e"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8aa30f8e"><p class="cl-8aa2fac6"><span class="cl-8a9f8238"></span></p></th><th class="cl-8aa30f98"><p class="cl-8aa2fada"><span class="cl-8a9f8238">Estimate</span></p></th><th class="cl-8aa30f99"><p class="cl-8aa2fada"><span class="cl-8a9f8238">Standard Error</span></p></th><th class="cl-8aa30fa2"><p class="cl-8aa2fada"><span class="cl-8a9f8238">z value</span></p></th><th class="cl-8aa30fac"><p class="cl-8aa2fada"><span class="cl-8a9f8238">Pr(&gt;|z|)</span></p></th><th class="cl-8aa30fb6"><p class="cl-8aa2fac6"><span class="cl-8a9f8238"></span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8aa30fc0"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">(Intercept)</span></p></td><td class="cl-8aa30fca"><p class="cl-8aa2fada"><span class="cl-8a9f8238">1.918</span></p></td><td class="cl-8aa30fcb"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.222</span></p></td><td class="cl-8aa30fd4"><p class="cl-8aa2fada"><span class="cl-8a9f8238">8.633</span></p></td><td class="cl-8aa30fd5"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.0000</span></p></td><td class="cl-8aa30fde"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8aa30fe8"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">treatmentshrub</span></p></td><td class="cl-8aa30ff2"><p class="cl-8aa2fada"><span class="cl-8a9f8238">-0.347</span></p></td><td class="cl-8aa30ff3"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.144</span></p></td><td class="cl-8aa30ffc"><p class="cl-8aa2fada"><span class="cl-8a9f8238">-2.407</span></p></td><td class="cl-8aa31006"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.0161</span></p></td><td class="cl-8aa31007"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">  *</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8aa3101a"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">speciesCARRUP</span></p></td><td class="cl-8aa31024"><p class="cl-8aa2fada"><span class="cl-8a9f8238">-1.568</span></p></td><td class="cl-8aa31025"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.294</span></p></td><td class="cl-8aa3102e"><p class="cl-8aa2fada"><span class="cl-8a9f8238">-5.337</span></p></td><td class="cl-8aa31038"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.0000</span></p></td><td class="cl-8aa31042"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8aa3101a"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">speciesGEUROS</span></p></td><td class="cl-8aa31024"><p class="cl-8aa2fada"><span class="cl-8a9f8238">-0.178</span></p></td><td class="cl-8aa31025"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.252</span></p></td><td class="cl-8aa3102e"><p class="cl-8aa2fada"><span class="cl-8a9f8238">-0.707</span></p></td><td class="cl-8aa31038"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.4794</span></p></td><td class="cl-8aa31042"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">   </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8aa3101a"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">speciesKOBMYO</span></p></td><td class="cl-8aa31024"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.198</span></p></td><td class="cl-8aa31025"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.224</span></p></td><td class="cl-8aa3102e"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.887</span></p></td><td class="cl-8aa31038"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.3751</span></p></td><td class="cl-8aa31042"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">   </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8aa3101a"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">speciesMINOBT</span></p></td><td class="cl-8aa31024"><p class="cl-8aa2fada"><span class="cl-8a9f8238">-0.362</span></p></td><td class="cl-8aa31025"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.238</span></p></td><td class="cl-8aa3102e"><p class="cl-8aa2fada"><span class="cl-8a9f8238">-1.525</span></p></td><td class="cl-8aa31038"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.1272</span></p></td><td class="cl-8aa31042"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">   </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8aa3101a"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">speciesTRIDAS</span></p></td><td class="cl-8aa31024"><p class="cl-8aa2fada"><span class="cl-8a9f8238">1.741</span></p></td><td class="cl-8aa31025"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.857</span></p></td><td class="cl-8aa3102e"><p class="cl-8aa2fada"><span class="cl-8a9f8238">2.031</span></p></td><td class="cl-8aa31038"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.0423</span></p></td><td class="cl-8aa31042"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">  *</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8aa3104c"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">total_nr_infl</span></p></td><td class="cl-8aa3104d"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.075</span></p></td><td class="cl-8aa31056"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.006</span></p></td><td class="cl-8aa31060"><p class="cl-8aa2fada"><span class="cl-8a9f8238">13.416</span></p></td><td class="cl-8aa3106a"><p class="cl-8aa2fada"><span class="cl-8a9f8238">0.0000</span></p></td><td class="cl-8aa31074"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">***</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-8aa31075"><p class="cl-8aa2fada"><span class="cl-8a9f8242">Signif. codes: 0 &lt;= '***' &lt; 0.001 &lt; '**' &lt; 0.01 &lt; '*' &lt; 0.05</span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-8aa310a6"><p class="cl-8aa2fac6"><span class="cl-8a9f8238"> </span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-8aa310a6"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">(Dispersion parameter for Negative Binomial(1.5049) family taken to be 1)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-8aa310a6"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">Null deviance: 543.4 on 181 degrees of freedom</span></p></td></tr><tr style="overflow-wrap:break-word;"><td colspan="6" class="cl-8aa310a6"><p class="cl-8aa2fac6"><span class="cl-8a9f8238">Residual deviance: 213.7 on 174 degrees of freedom</span></p></td></tr></tfoot></table></div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># when looking at the treatment shurb it was -0.34744,from summary, so it is in reference to the open plot</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> seed_ctwt_subset, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> nr_seeds, <span class="at">color =</span> treatment))<span class="sc">+</span> </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">data =</span> seed_ctwt_subset, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> nr_seeds))<span class="sc">+</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">125</span>)<span class="sc">+</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="final_project_code_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#there was an outlier at y-axis of 180 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(seedctwt3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#confidence interval</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(seedctwt3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     2.5 %      97.5 %
 (Intercept)     1.48135091  2.37173652
@@ -499,7 +631,11 @@ total_nr_infl   0.05879443  0.09257054</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">r.squaredGLMM</span>(seedctwt3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusted R2</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r.squaredGLMM</span>(seedctwt3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                R2m       R2c
 delta     0.6826312 0.6826312
@@ -508,65 +644,81 @@ trigamma  0.5975110 0.5975110</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(seedctwt3, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"total_nr_infl"</span>,<span class="st">"treatment"</span>, <span class="st">"species"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">treatment =</span> group,</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">species =</span> facet)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(seed_ctwt_subset, <span class="fu">aes</span>(<span class="at">x =</span> total_nr_infl , <span class="at">y =</span> nr_seeds, <span class="at">fill =</span> treatment)) <span class="sc">+</span> <span class="co">#might need to change fill variable</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> treatment), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> predictions, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> predicted, <span class="at">color =</span> treatment)) <span class="sc">+</span> <span class="co">#get error, i think it has to due with predicted </span></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> predictions, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> predicted, <span class="at">ymin =</span> conf.low, <span class="at">ymax=</span> conf.high, <span class="at">fill =</span> treatment), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> <span class="co">#same as above</span></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"shrub"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"control"</span> <span class="ot">=</span> <span class="st">"orange"</span>))<span class="sc">+</span></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"shrub"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"control"</span> <span class="ot">=</span> <span class="st">"orange"</span>))<span class="sc">+</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">scales =</span> <span class="st">"free_y"</span>)<span class="sc">+</span> </span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"treatment"</span>, <span class="at">color =</span> <span class="st">"treatment"</span>) <span class="sc">+</span></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)) <span class="sc">+</span></span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">65</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new dataframe to predict values for all levels </span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(seedctwt3, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"total_nr_infl"</span>,<span class="st">"treatment"</span>, <span class="st">"species"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">treatment =</span> group,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">species =</span> facet)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># creating plot with predicitons and seed_ctwt_subset</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(seed_ctwt_subset, <span class="fu">aes</span>(<span class="at">x =</span> total_nr_infl , <span class="at">y =</span> nr_seeds, <span class="at">fill =</span> treatment)) <span class="sc">+</span> <span class="co">#might need to change fill variable</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> treatment), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> predictions, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> predicted, <span class="at">color =</span> treatment)) <span class="sc">+</span> <span class="co">#get error, i think it has to due with predicted </span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> predictions, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> predicted, <span class="at">ymin =</span> conf.low, <span class="at">ymax=</span> conf.high, <span class="at">fill =</span> treatment), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> <span class="co">#same as above</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"shrub"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"control"</span> <span class="ot">=</span> <span class="st">"orange"</span>))<span class="sc">+</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"shrub"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"control"</span> <span class="ot">=</span> <span class="st">"orange"</span>))<span class="sc">+</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">scales =</span> <span class="st">"free_y"</span>)<span class="sc">+</span> </span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"treatment"</span>, <span class="at">color =</span> <span class="st">"treatment"</span>) <span class="sc">+</span></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">#used function to visually see better </span></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">#used function to visually see better </span></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">65</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="final_project_code_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>How does seed count vary with plot type (shrub or open), plant species, and total number of inflorescences? Is there a simpler model that explains seed count, and if so, what is it?</p>
+<p>Figure 7.</p>
 </section>
 </section>
 <section id="results-problem-2" class="level1">
 <h1>Results Problem #2</h1>
-<p>so its done ?</p>
+<p>Im going to write it rn.</p>
 </section>
 <section id="references" class="level1 unnumbered">
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-guo1996" class="csl-entry" role="listitem">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-edwards2007" class="csl-entry" role="doc-biblioentry">
+Edwards, Anthony C., Riccardo Scalenghe, and Michele Freppaz. 2007. <span>“Changes in the Seasonal Snow Cover of Alpine Regions and Its Effect on Soil Processes: A Review.”</span> <em>Quaternary International</em> 162-163 (March): 172–81. <a href="https://doi.org/10.1016/j.quaint.2006.10.027">https://doi.org/10.1016/j.quaint.2006.10.027</a>.
+</div>
+<div id="ref-germino2014" class="csl-entry" role="doc-biblioentry">
+Germino, Matthew J. 2014. <span>“Plants in Alpine Environments.”</span> In, 1–30. Springer New York. <a href="https://doi.org/10.1007/978-1-4614-7612-2_12-4">https://doi.org/10.1007/978-1-4614-7612-2_12-4</a>.
+</div>
+<div id="ref-guo1996" class="csl-entry" role="doc-biblioentry">
 Guo, Qinfeng. 1996. <span>“Effects of Bannertail Kangaroo Rat Mounds on Small-Scale Plant Community Structure.”</span> <em>Oecologia</em> 106 (2): 247–56. <a href="https://doi.org/10.1007/bf00328605">https://doi.org/10.1007/bf00328605</a>.
 </div>
-<div id="ref-koontz2010" class="csl-entry" role="listitem">
+<div id="ref-koontz2010" class="csl-entry" role="doc-biblioentry">
 Koontz, Terri L., and Heather L. Simpson. 2010. <span>“The Composition of Seed Banks on Kangaroo Rat (Dipodomys Spectabilis) Mounds in a Chihuahuan Desert Grassland.”</span> <em>Journal of Arid Environments</em> 74 (10): 1156–61. <a href="https://doi.org/10.1016/j.jaridenv.2010.03.008">https://doi.org/10.1016/j.jaridenv.2010.03.008</a>.
 </div>
-<div id="ref-koontz2013" class="csl-entry" role="listitem">
+<div id="ref-koontz2013" class="csl-entry" role="doc-biblioentry">
 Koontz, Terri, and Heather Simpson. 2013. <span>“Effects of Kangaroo Rat Mounds on Seed Banks of Grass and Shrublands at the Sevilleta National Wildlife Refuge, New Mexico (2001).”</span> Environmental Data Initiative. <a href="https://doi.org/10.6073/PASTA/115B8095A5E82028869A8C56EFF14597">https://doi.org/10.6073/PASTA/115B8095A5E82028869A8C56EFF14597</a>.
 </div>
-<div id="ref-mckight2010" class="csl-entry" role="listitem">
+<div id="ref-mckight2010" class="csl-entry" role="doc-biblioentry">
 McKight, Patrick E., and Julius Najab. 2010. <span>“Kruskal<span>-</span>Wallis Test.”</span> <em>The Corsini Encyclopedia of Psychology</em>, January, 1–1. <a href="https://doi.org/10.1002/9780470479216.corpsy0491">https://doi.org/10.1002/9780470479216.corpsy0491</a>.
 </div>
-<div id="ref-seaver2022" class="csl-entry" role="listitem">
-Seaver, Micaela M. 2022. <span>“Individual and Community Flowering Phenology, Seed Counts and Pollinator Visitation Rates in Shrub and Open Plots Across Niwot Ridge, 2019 - 2021.”</span> Environmental Data Initiative. <a href="https://doi.org/10.6073/PASTA/EDC4AB2FAF7DD96CD1DEAC1544D5F2B9">https://doi.org/10.6073/PASTA/EDC4AB2FAF7DD96CD1DEAC1544D5F2B9</a>.
+<div id="ref-seaver2022" class="csl-entry" role="doc-biblioentry">
+Seaver, Micaela M. 2022b. <span>“Individual and Community Flowering Phenology, Seed Counts and Pollinator Visitation Rates in Shrub and Open Plots Across Niwot Ridge, 2019 - 2021.”</span> Environmental Data Initiative. <a href="https://doi.org/10.6073/PASTA/EDC4AB2FAF7DD96CD1DEAC1544D5F2B9">https://doi.org/10.6073/PASTA/EDC4AB2FAF7DD96CD1DEAC1544D5F2B9</a>.
+</div>
+<div id="ref-seaver2022a" class="csl-entry" role="doc-biblioentry">
+———. 2022a. <span>“Individual and Community Flowering Phenology, Seed Counts and Pollinator Visitation Rates in Shrub and Open Plots Across Niwot Ridge, 2019 - 2021.”</span> Environmental Data Initiative. <a href="https://doi.org/10.6073/PASTA/EDC4AB2FAF7DD96CD1DEAC1544D5F2B9">https://doi.org/10.6073/PASTA/EDC4AB2FAF7DD96CD1DEAC1544D5F2B9</a>.
+</div>
+<div id="ref-wen2020" class="csl-entry" role="doc-biblioentry">
+Wen, Lina, and Andrew M. Simons. 2020. <span>“Delusions of Grandeur: Seed Count Is Not a Good Fitness Proxy Under Individual Variation in Phenology.”</span> <em>Journal of Evolutionary Biology</em> 33 (8): 1039–49. <a href="https://doi.org/10.1111/jeb.13633">https://doi.org/10.1111/jeb.13633</a>.
 </div>
 </div></section></div></main>
 <!-- /main column -->
@@ -597,23 +749,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -625,24 +763,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
     setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -678,128 +799,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
       });
-    }
+      return popup.innerHTML;
+    });
   }
 });
 </script>
